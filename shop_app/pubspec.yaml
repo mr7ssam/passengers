@@ -1,0 +1,66 @@
+name: shop_app
+description: A new Flutter project.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  animations: ^2.0.2
+  easy_localization:
+  flutter_bloc: ^8.0.1
+  p_design:
+    path: ../packages/p_design
+  p_bootstrap:
+    path: ../packages/p_bootstrap
+  p_network:
+    path: ../packages/p_network
+
+
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
