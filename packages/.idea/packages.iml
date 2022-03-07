@@ -12,6 +12,9 @@
       <excludeFolder url="file://$MODULE_DIR$/p_bootstrap/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/p_bootstrap/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/p_bootstrap/build" />
+      <excludeFolder url="file://$MODULE_DIR$/p_core/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/p_core/build" />
+      <excludeFolder url="file://$MODULE_DIR$/p_core/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
