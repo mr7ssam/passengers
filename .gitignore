@@ -8,3 +8,6 @@
 .pub/
 .dart_tool/
 pubspec.lock
+*.iml
+
+melos_passengers.iml
