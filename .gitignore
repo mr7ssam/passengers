@@ -1,0 +1,13 @@
+.idea/
+.vscode/*
+.melos_tool/*
+!.vscode/tasks.json
+!.vscode/settings.json
+
+.packages
+.pub/
+.dart_tool/
+pubspec.lock
+*.iml
+
+melos_passengers.iml
