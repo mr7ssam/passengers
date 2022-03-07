@@ -3,3 +3,16 @@ name: passengers
 packages:
   - packages/**
   - features/**
+  - apps/**
+
+scripts:
+  format: melos exec -- "flutter format ."
+
+  analyze:
+    run: melos exec -- flutter analyze .
+    description: Run `dart analyze` in all packages.
+
+  easy_local:
+    run: melos exec --depends-on="easy_localization" --scope="*app*" -- $easy
+    env:
+      easy: flutter pub run easy_localization:generate -S translations
