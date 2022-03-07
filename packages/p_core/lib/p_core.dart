@@ -1,1 +1,0 @@
-library p_core;
