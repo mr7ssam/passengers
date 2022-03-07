@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:p_design/p_design.dart';
+import 'package:shop_app/router/router.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -7,16 +9,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: () => MaterialApp(
+      builder: () => MaterialApp.router(
+        locale: context.locale,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        routeInformationParser: router.routeInformationParser,
+        routerDelegate: router.routerDelegate,
         title: 'Passengers Shop',
         useInheritedMediaQuery: true,
         theme: lightTheme,
-        home: const Scaffold(
-            body: Center(
-                child: Text(
-          'Passengets',
-          style: TextStyle(package: 'p_design', fontFamily: 'LexendDeca'),
-        ))),
       ),
     );
   }

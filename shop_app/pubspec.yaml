@@ -12,29 +12,29 @@ dependencies:
   flutter:
     sdk: flutter
   animations: ^2.0.2
-  easy_localization:
+  easy_localization: ^3.0.1-dev
+  go_router: ^3.0.4
   flutter_bloc: ^8.0.1
-  p_design:
-    path: ../packages/p_design
+  freezed_annotation: ^1.1.0
   p_bootstrap:
     path: ../packages/p_bootstrap
+  p_design:
+    path: ../packages/p_design
   p_network:
     path: ../packages/p_network
-
-
-
-
-
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  build_runner: ^2.1.7
+  freezed: ^1.1.1
 
 flutter:
   uses-material-design: true
 
-
+  assets:
+    - translations/
 
 
 

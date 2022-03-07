@@ -10,6 +10,13 @@ web/experimental
 doc
 .packages
 
+**/doc/api/
+.flutter-plugins
+.flutter-plugins-dependencies
+.fvm/
+.pub-cache/
+coverage/
+lib/generated_plugin_registrant.dart
 # Or the files created by dart2js.
 *.dart.js
 *.js_

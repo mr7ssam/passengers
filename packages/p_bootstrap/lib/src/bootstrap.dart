@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
+
+import 'config/localization_config.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -18,7 +21,11 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap(
+  FutureOr<Widget> Function() builder, {
+  LocalizationConfig? localizationConfig,
+}) async {
+  WidgetsFlutterBinding.ensureInitialized();
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
@@ -26,10 +33,30 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await runZonedGuarded(
     () async {
       await BlocOverrides.runZoned(
-        () async => runApp(await builder()),
+        () async => runApp(
+          localizationConfig != null
+              ? await _easyLocalization(builder, localizationConfig)
+              : await builder(),
+        ),
         blocObserver: AppBlocObserver(),
       );
     },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+  );
+}
+
+Future<EasyLocalization> _easyLocalization(
+    FutureOr<Widget> builder(), LocalizationConfig localizationConfig) async {
+  await EasyLocalization.ensureInitialized();
+  return EasyLocalization(
+    child: await builder(),
+    supportedLocales: localizationConfig.supportedLocales,
+    fallbackLocale: localizationConfig.fallbackLocale,
+    assetLoader: localizationConfig.assetLoader,
+    useOnlyLangCode: localizationConfig.useOnlyLangCode,
+    saveLocale: localizationConfig.saveLocale,
+    startLocale: localizationConfig.startLocale,
+    useFallbackTranslations: localizationConfig.useFallbackTranslations,
+    path: localizationConfig.path,
   );
 }
