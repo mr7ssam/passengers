@@ -10,14 +10,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^4.0.4
+  dio: ^4.0.6
+  freezed_annotation: ^1.1.0
   refresh_bot:
     git:
-      url: git://github.com/flutterbots/flutterbots.git
+      url: git@github.com:flutterbots/flutterbots.git
       path: packages/refresh_bot
+
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  build_runner: ^2.1.8
+  freezed: ^1.1.1
