@@ -8,11 +8,21 @@ packages:
 scripts:
   format: melos exec -- "flutter format ."
 
+  fix_hints: melos exec -- "dart fix —apply ."
+
   analyze:
     run: melos exec -- flutter analyze .
     description: Run `dart analyze` in all packages.
 
   easy_local:
-    run: melos exec --depends-on="easy_localization" --scope="*app*" -- $easy
+    run: |
+      melos exec --depends-on="easy_localization" --scope="*app*" -- $easy &&
+      melos exec --depends-on="easy_localization" --scope="*app*" -- $easy -f keys -o locale_keys.g.dart
     env:
       easy: flutter pub run easy_localization:generate -S translations
+
+  build_runner:
+    run: |
+      melos exec --depends-on="build_runner" --  $runner
+    env:
+      runner: flutter pub run build_runner build --delete-conflicting-outputs

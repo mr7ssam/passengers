@@ -15,6 +15,12 @@ class AppBlocObserver extends BlocObserver {
   }
 
   @override
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+    log('onEvent(${event.runtimeType}, $event)');
+  }
+
+  @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     log('onError(${bloc.runtimeType}, $error, $stackTrace)');
     super.onError(bloc, error, stackTrace);
@@ -45,8 +51,8 @@ Future<void> bootstrap(
   );
 }
 
-Future<EasyLocalization> _easyLocalization(
-    FutureOr<Widget> builder(), LocalizationConfig localizationConfig) async {
+Future<EasyLocalization> _easyLocalization(FutureOr<Widget> Function() builder,
+    LocalizationConfig localizationConfig) async {
   await EasyLocalization.ensureInitialized();
   return EasyLocalization(
     child: await builder(),

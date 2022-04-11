@@ -10,13 +10,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  reactive_forms: ^11.0.1
+  extended_image: ^6.0.2+1
+  intl_phone_field: ^3.1.0
+  flutter_keyboard_visibility: ^5.2.0
   flutter_screenutil:
-    git: git://github.com/Husssam12/flutter_screenutil.git
+    git: git@github.com:OpenFlutter/flutter_screenutil.git
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
 
 flutter:
   fonts:
