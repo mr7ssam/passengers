@@ -24,9 +24,11 @@ class _$ApiResultTearOff {
     );
   }
 
-  Failure<T> failure<T>({required String message}) {
+  Failure<T> failure<T>(
+      {required String message, required AppException<dynamic> exception}) {
     return Failure<T>(
       message: message,
+      exception: exception,
     );
   }
 }
@@ -39,19 +41,20 @@ mixin _$ApiResult<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(String message) failure,
+    required TResult Function(String message, AppException<dynamic> exception)
+        failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(String message)? failure,
+    TResult Function(String message, AppException<dynamic> exception)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(String message)? failure,
+    TResult Function(String message, AppException<dynamic> exception)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -123,23 +126,15 @@ class _$SuccessCopyWithImpl<T, $Res> extends _$ApiResultCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$Success<T> with DiagnosticableTreeMixin implements Success<T> {
+class _$Success<T> implements Success<T> {
   const _$Success({required this.data});
 
   @override
   final T data;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ApiResult<$T>.success(data: $data)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ApiResult<$T>.success'))
-      ..add(DiagnosticsProperty('data', data));
   }
 
   @override
@@ -163,7 +158,8 @@ class _$Success<T> with DiagnosticableTreeMixin implements Success<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(String message) failure,
+    required TResult Function(String message, AppException<dynamic> exception)
+        failure,
   }) {
     return success(data);
   }
@@ -172,7 +168,7 @@ class _$Success<T> with DiagnosticableTreeMixin implements Success<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(String message)? failure,
+    TResult Function(String message, AppException<dynamic> exception)? failure,
   }) {
     return success?.call(data);
   }
@@ -181,7 +177,7 @@ class _$Success<T> with DiagnosticableTreeMixin implements Success<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(String message)? failure,
+    TResult Function(String message, AppException<dynamic> exception)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -235,7 +231,7 @@ abstract class Success<T> implements ApiResult<T> {
 abstract class $FailureCopyWith<T, $Res> {
   factory $FailureCopyWith(Failure<T> value, $Res Function(Failure<T>) then) =
       _$FailureCopyWithImpl<T, $Res>;
-  $Res call({String message});
+  $Res call({String message, AppException<dynamic> exception});
 }
 
 /// @nodoc
@@ -250,35 +246,34 @@ class _$FailureCopyWithImpl<T, $Res> extends _$ApiResultCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? message = freezed,
+    Object? exception = freezed,
   }) {
     return _then(Failure<T>(
       message: message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      exception: exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as AppException<dynamic>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$Failure<T> with DiagnosticableTreeMixin implements Failure<T> {
-  const _$Failure({required this.message});
+class _$Failure<T> implements Failure<T> {
+  const _$Failure({required this.message, required this.exception});
 
   @override
   final String message;
+  @override
+  final AppException<dynamic> exception;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ApiResult<$T>.failure(message: $message)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ApiResult<$T>.failure'))
-      ..add(DiagnosticsProperty('message', message));
+  String toString() {
+    return 'ApiResult<$T>.failure(message: $message, exception: $exception)';
   }
 
   @override
@@ -286,12 +281,15 @@ class _$Failure<T> with DiagnosticableTreeMixin implements Failure<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Failure<T> &&
-            const DeepCollectionEquality().equals(other.message, message));
+            const DeepCollectionEquality().equals(other.message, message) &&
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(message),
+      const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override
@@ -302,29 +300,30 @@ class _$Failure<T> with DiagnosticableTreeMixin implements Failure<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(String message) failure,
+    required TResult Function(String message, AppException<dynamic> exception)
+        failure,
   }) {
-    return failure(message);
+    return failure(message, exception);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(String message)? failure,
+    TResult Function(String message, AppException<dynamic> exception)? failure,
   }) {
-    return failure?.call(message);
+    return failure?.call(message, exception);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(String message)? failure,
+    TResult Function(String message, AppException<dynamic> exception)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
-      return failure(message);
+      return failure(message, exception);
     }
     return orElse();
   }
@@ -362,9 +361,12 @@ class _$Failure<T> with DiagnosticableTreeMixin implements Failure<T> {
 }
 
 abstract class Failure<T> implements ApiResult<T> {
-  const factory Failure({required String message}) = _$Failure<T>;
+  const factory Failure(
+      {required String message,
+      required AppException<dynamic> exception}) = _$Failure<T>;
 
   String get message;
+  AppException<dynamic> get exception;
   @JsonKey(ignore: true)
   $FailureCopyWith<T, Failure<T>> get copyWith =>
       throw _privateConstructorUsedError;

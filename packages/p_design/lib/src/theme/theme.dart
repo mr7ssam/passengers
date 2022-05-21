@@ -24,6 +24,18 @@ final lightTheme = ThemeData(
     appBarTheme: _appBarTheme,
     inputDecorationTheme: _kInputDecoration,
     iconTheme: _kIconTheme,
+    bottomSheetTheme: const BottomSheetThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(PRadius.container),
+          topRight: Radius.circular(PRadius.container),
+        ),
+      ),
+    ),
+    cardTheme: CardTheme(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(PRadius.container.r))),
     dialogTheme: DialogTheme(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r))),
@@ -99,13 +111,16 @@ final _floatingActionButtonTheme = FloatingActionButtonThemeData(
   backgroundColor: PColors.primarySwatch.shade500,
   foregroundColor: Colors.white,
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(PRadius.button.r),
+    borderRadius: BorderRadius.circular(PRadius.floatingButton.r),
   ),
 );
 
 final _colorScheme = ColorScheme.fromSwatch(
   primarySwatch: PColors.primarySwatch,
   accentColor: PColors.secondarySwatch.shade400,
+).copyWith(
+  onPrimaryContainer: PColors.primarySwatch.shade400,
+  primaryContainer: PColors.primarySwatch.shade50,
 );
 
 final _checkboxThemeData = CheckboxThemeData(

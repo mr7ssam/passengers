@@ -4,13 +4,15 @@ import 'package:p_design/p_design.dart';
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
     Key? key,
-    required this.icon,
+    this.icon,
+    this.trilling,
     required this.text,
     this.onTap,
-    this.borderRadius = 0,
+    this.borderRadius = PRadius.container,
   }) : super(key: key);
 
-  final Widget icon;
+  final Widget? icon;
+  final Widget? trilling;
   final String text;
   final GestureTapCallback? onTap;
   final double borderRadius;
@@ -19,9 +21,7 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       clipBehavior: Clip.antiAlias,
-      color: Theme
-          .of(context)
-          .cardColor,
+      color: Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius.r),
       ),
@@ -31,13 +31,14 @@ class CustomListTile extends StatelessWidget {
           padding: REdgeInsets.symmetric(horizontal: 12, vertical: 16),
           child: Row(
             children: [
-              icon,
+              if (icon != null) icon!,
               const RSizedBox.horizontal(12),
               YouText.bodyMedium(text),
-              if (onTap != null) ...[
-                const Spacer(),
+              if (trilling != null || onTap != null) const Spacer(),
+              if (onTap != null && trilling == null) ...[
                 const Icon(PIcons.outline_arrow___right__1),
-              ]
+              ],
+              if (trilling != null) trilling!,
             ],
           ),
         ),
@@ -45,4 +46,3 @@ class CustomListTile extends StatelessWidget {
     );
   }
 }
-
