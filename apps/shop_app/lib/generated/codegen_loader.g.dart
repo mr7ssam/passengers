@@ -81,7 +81,7 @@ class CodegenLoader extends AssetLoader{
       "contact_title": "Contact Information",
       "work_days": "Work days",
       "work_hours": "Work hours",
-      "main_category_title": "Main category",
+      "business_type_title": "Business type",
       "sub_category_title": "Popular food lists categories"
     }
   }

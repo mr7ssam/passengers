@@ -36,9 +36,9 @@ class _$PageStateTearOff {
     return _Empty<T>();
   }
 
-  _Error<T> error<T>({required String error}) {
+  _Error<T> error<T>({required AppException<dynamic> exception}) {
     return _Error<T>(
-      error: error,
+      exception: exception,
     );
   }
 }
@@ -54,7 +54,7 @@ mixin _$PageState<T> {
     required TResult Function() loading,
     required TResult Function(T data) loaded,
     required TResult Function() empty,
-    required TResult Function(String error) error,
+    required TResult Function(AppException<dynamic> exception) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,7 +63,7 @@ mixin _$PageState<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,7 +72,7 @@ mixin _$PageState<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -164,7 +164,7 @@ class _$_init<T> implements _init<T> {
     required TResult Function() loading,
     required TResult Function(T data) loaded,
     required TResult Function() empty,
-    required TResult Function(String error) error,
+    required TResult Function(AppException<dynamic> exception) error,
   }) {
     return init();
   }
@@ -176,7 +176,7 @@ class _$_init<T> implements _init<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
   }) {
     return init?.call();
   }
@@ -188,7 +188,7 @@ class _$_init<T> implements _init<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -285,7 +285,7 @@ class _$_Lodaing<T> implements _Lodaing<T> {
     required TResult Function() loading,
     required TResult Function(T data) loaded,
     required TResult Function() empty,
-    required TResult Function(String error) error,
+    required TResult Function(AppException<dynamic> exception) error,
   }) {
     return loading();
   }
@@ -297,7 +297,7 @@ class _$_Lodaing<T> implements _Lodaing<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
   }) {
     return loading?.call();
   }
@@ -309,7 +309,7 @@ class _$_Lodaing<T> implements _Lodaing<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -429,7 +429,7 @@ class _$_Loaded<T> implements _Loaded<T> {
     required TResult Function() loading,
     required TResult Function(T data) loaded,
     required TResult Function() empty,
-    required TResult Function(String error) error,
+    required TResult Function(AppException<dynamic> exception) error,
   }) {
     return loaded(data);
   }
@@ -441,7 +441,7 @@ class _$_Loaded<T> implements _Loaded<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
   }) {
     return loaded?.call(data);
   }
@@ -453,7 +453,7 @@ class _$_Loaded<T> implements _Loaded<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -554,7 +554,7 @@ class _$_Empty<T> implements _Empty<T> {
     required TResult Function() loading,
     required TResult Function(T data) loaded,
     required TResult Function() empty,
-    required TResult Function(String error) error,
+    required TResult Function(AppException<dynamic> exception) error,
   }) {
     return empty();
   }
@@ -566,7 +566,7 @@ class _$_Empty<T> implements _Empty<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
   }) {
     return empty?.call();
   }
@@ -578,7 +578,7 @@ class _$_Empty<T> implements _Empty<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
     required TResult orElse(),
   }) {
     if (empty != null) {
@@ -636,7 +636,7 @@ abstract class _Empty<T> implements PageState<T> {
 abstract class _$ErrorCopyWith<T, $Res> {
   factory _$ErrorCopyWith(_Error<T> value, $Res Function(_Error<T>) then) =
       __$ErrorCopyWithImpl<T, $Res>;
-  $Res call({String error});
+  $Res call({AppException<dynamic> exception});
 }
 
 /// @nodoc
@@ -650,13 +650,13 @@ class __$ErrorCopyWithImpl<T, $Res> extends _$PageStateCopyWithImpl<T, $Res>
 
   @override
   $Res call({
-    Object? error = freezed,
+    Object? exception = freezed,
   }) {
     return _then(_Error<T>(
-      error: error == freezed
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String,
+      exception: exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as AppException<dynamic>,
     ));
   }
 }
@@ -664,14 +664,14 @@ class __$ErrorCopyWithImpl<T, $Res> extends _$PageStateCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$_Error<T> implements _Error<T> {
-  const _$_Error({required this.error});
+  const _$_Error({required this.exception});
 
   @override
-  final String error;
+  final AppException<dynamic> exception;
 
   @override
   String toString() {
-    return 'PageState<$T>.error(error: $error)';
+    return 'PageState<$T>.error(exception: $exception)';
   }
 
   @override
@@ -679,12 +679,12 @@ class _$_Error<T> implements _Error<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Error<T> &&
-            const DeepCollectionEquality().equals(other.error, error));
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override
@@ -698,9 +698,9 @@ class _$_Error<T> implements _Error<T> {
     required TResult Function() loading,
     required TResult Function(T data) loaded,
     required TResult Function() empty,
-    required TResult Function(String error) error,
+    required TResult Function(AppException<dynamic> exception) error,
   }) {
-    return error(this.error);
+    return error(exception);
   }
 
   @override
@@ -710,9 +710,9 @@ class _$_Error<T> implements _Error<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
   }) {
-    return error?.call(this.error);
+    return error?.call(exception);
   }
 
   @override
@@ -722,11 +722,11 @@ class _$_Error<T> implements _Error<T> {
     TResult Function()? loading,
     TResult Function(T data)? loaded,
     TResult Function()? empty,
-    TResult Function(String error)? error,
+    TResult Function(AppException<dynamic> exception)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(this.error);
+      return error(exception);
     }
     return orElse();
   }
@@ -773,9 +773,10 @@ class _$_Error<T> implements _Error<T> {
 }
 
 abstract class _Error<T> implements PageState<T> {
-  const factory _Error({required String error}) = _$_Error<T>;
+  const factory _Error({required AppException<dynamic> exception}) =
+      _$_Error<T>;
 
-  String get error;
+  AppException<dynamic> get exception;
   @JsonKey(ignore: true)
   _$ErrorCopyWith<T, _Error<T>> get copyWith =>
       throw _privateConstructorUsedError;

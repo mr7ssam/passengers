@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show BuildContext;
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/features/root/presentation/root.dart';
-import 'package:shop_app/features/user/domain/entities/user.dart';
-import 'package:shop_app/features/user/presentation/provider.dart';
+import 'package:shop_app/app/root/presentation/pages/get_started/get_started.dart';
+import 'package:shop_app/app/root/presentation/root.dart';
+import 'package:shop_app/app/user/domain/entities/user.dart';
 
+import '../app/user/presentation/pages/complete_info/complete_info_land_screen.dart';
 import '../core/app_manger/bloc/app_manger_bloc.dart';
 import 'routes.dart';
 
@@ -35,14 +36,6 @@ class AppRouter {
       path: RootScreen.path,
       name: RootScreen.name,
       pageBuilder: RootScreen.pageBuilder,
-      redirect: (state) {
-        final user = context.read<UserProvider>().user!;
-
-        if (user.accountStatus == AccountStatus.unCompleted) {
-          return CompleteInfoScreen.path;
-        }
-        return null;
-      },
       routes: [
         GoRoute(
           path: SettingsScreen.path,
@@ -56,12 +49,50 @@ class AppRouter {
             ),
           ],
         ),
+        GoRoute(
+          path: FoodListCategoriesSettings.path,
+          name: FoodListCategoriesSettings.name,
+          pageBuilder: FoodListCategoriesSettings.pageBuilder,
+        ),
+        GoRoute(
+          path: WorkingDaysSettings.path,
+          name: WorkingDaysSettings.name,
+          pageBuilder: WorkingDaysSettings.pageBuilder,
+        ),
+        GoRoute(
+          path: AddProductScreen.path,
+          name: AddProductScreen.name,
+          pageBuilder: AddProductScreen.pageBuilder,
+        ),
+        GoRoute(
+            path: ProductDetailsScreen.path,
+            name: ProductDetailsScreen.name,
+            pageBuilder: ProductDetailsScreen.pageBuilder,
+            routes: [
+              GoRoute(
+                path: AddProductScreen.editPath,
+                name: AddProductScreen.editName,
+                pageBuilder: AddProductScreen.pageBuilder,
+              ),
+            ])
       ],
     ),
     GoRoute(
-      path: CompleteInfoScreen.path,
-      name: CompleteInfoScreen.name,
-      pageBuilder: CompleteInfoScreen.pageBuilder,
+      path: CompleteInfoLandScreen.path,
+      name: CompleteInfoLandScreen.name,
+      pageBuilder: CompleteInfoLandScreen.pageBuilder,
+      routes: [
+        GoRoute(
+          path: CompleteInfoScreen.path,
+          name: CompleteInfoScreen.name,
+          pageBuilder: CompleteInfoScreen.pageBuilder,
+        )
+      ],
+    ),
+    GoRoute(
+      path: GetStartedScreen.path,
+      name: GetStartedScreen.name,
+      pageBuilder: GetStartedScreen.pageBuilder,
     ),
     GoRoute(
       path: WelcomeScreen.path,
@@ -84,18 +115,41 @@ class AppRouter {
 
   _rootRedirect(BuildContext context, GoRouterState state) {
     final appState = context.read<AppMangerBloc>().state;
+
+    final goingToHome = !(state.location.contains(RootScreen.path));
+    if (goingToHome && appState.state == AppState.authenticated) {
+      return _userStatusRedirect(context, state, appState);
+    }
+
     final goingToWelcome = !(state.location.contains(WelcomeScreen.path));
     if (goingToWelcome && appState.state == AppState.unAuthenticated) {
       return WelcomeScreen.path;
     }
 
-    final inCompleteInfo = !(state.location.contains(CompleteInfoScreen.name));
-    final goingToHome =
-        !(state.location.contains(RootScreen.path)) && inCompleteInfo;
-    if (goingToHome && appState.state == AppState.authenticated) {
-      return RootScreen.path;
-    }
     return null;
+  }
+
+  String? _userStatusRedirect(
+    BuildContext context,
+    GoRouterState state,
+    AppMangerState appState,
+  ) {
+    final user = appState.user;
+
+    final goingToComplete =
+        !(state.location.contains(CompleteInfoLandScreen.path));
+    if (user?.accountStatus == AccountStatus.unCompleted) {
+      return goingToComplete ? CompleteInfoLandScreen.path : null;
+    }
+
+    final goingToGetStarted = !(state.location.contains(GetStartedScreen.path));
+    final wasInComplete = state.location.contains(CompleteInfoScreen.path);
+    if (wasInComplete && goingToGetStarted) {
+      return goingToGetStarted ? GetStartedScreen.path : null;
+    } else if (!goingToGetStarted) {
+      return null;
+    }
+    return RootScreen.path;
   }
 
   static AppRouter of(BuildContext context) {

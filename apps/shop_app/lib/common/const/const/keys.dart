@@ -1,4 +1,3 @@
 part of '../const.dart';
 
-const kTokenKey = '__auth_token__';
-const kUserKey = '__user__';
+const kGoogleMapKey = 'AIzaSyA7Brr57aNvZbp8vxe7m2wxJA9k1AyBt_M';

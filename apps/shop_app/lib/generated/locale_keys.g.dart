@@ -57,7 +57,7 @@ abstract class  LocaleKeys {
   static const user_complete_information_contact_title = 'user.complete_information.contact_title';
   static const user_complete_information_work_days = 'user.complete_information.work_days';
   static const user_complete_information_work_hours = 'user.complete_information.work_hours';
-  static const user_complete_information_main_category_title = 'user.complete_information.main_category_title';
+  static const user_complete_information_business_type_title = 'user.complete_information.business_type_title';
   static const user_complete_information_sub_category_title = 'user.complete_information.sub_category_title';
   static const user_complete_information = 'user.complete_information';
   static const user = 'user';

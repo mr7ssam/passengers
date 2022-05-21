@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/features/user/presentation/provider.dart';
+import 'package:shop_app/app/product/presentation/pages/food_menu/bloc/food_menu_bloc.dart';
+import 'package:shop_app/app/user/presentation/provider.dart';
 import 'package:shop_app/router/router.dart';
 
 import 'core/app_manger/bloc/app_manger_bloc.dart';
@@ -26,6 +27,9 @@ class Providers extends StatelessWidget {
             doBeforeOpen: _doBeforeOpen,
           )..add(AppMangerStarted()),
         ),
+        BlocProvider(
+          create: (_) => FoodMenuBloc(si()),
+        ),
       ],
       child: MultiProvider(
         providers: [
@@ -34,8 +38,9 @@ class Providers extends StatelessWidget {
           )
         ],
         builder: (context, _) => Provider<AppRouter>(
-            create: (context) => AppRouter(context: context),
-            builder: (context, _) => builder(context)),
+          create: (context) => AppRouter(context: context),
+          builder: (context, _) => builder(context),
+        ),
       ),
     );
   }
