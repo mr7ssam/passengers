@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-final kArabicFontFamily = 'NotoKufiArabic';
-final kEnglishFontFamily = 'LexendDeca';
+const kArabicFontFamily = 'NotoKufiArabic';
+const kEnglishFontFamily = 'LexendDeca';
 
 const _package = 'p_design';
 final TextTheme textTheme = TextTheme(

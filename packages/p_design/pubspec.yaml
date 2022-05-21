@@ -1,6 +1,7 @@
 name: p_design
 description: passengers apps theme.
 version: 0.0.1
+publish_to: none
 homepage:
 
 environment:
@@ -14,13 +15,17 @@ dependencies:
   extended_image: ^6.0.2+1
   intl_phone_field: ^3.1.0
   flutter_keyboard_visibility: ^5.2.0
-  flutter_screenutil:
-    git: git@github.com:OpenFlutter/flutter_screenutil.git
+  flutter_screenutil: ^5.4.0
+  shimmer: ^2.0.0
+
+  p_network:
+    path: ../p_network
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.4
+
 
 flutter:
   fonts:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TonalButton extends StatelessWidget {
+class FilledButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final VoidCallback? onLongPress;
   final ValueChanged<bool>? onHover;
@@ -10,7 +10,7 @@ class TonalButton extends StatelessWidget {
   final bool autofocus;
   final Clip clipBehavior;
   final Widget child;
-  const TonalButton({
+  const FilledButton({
     Key? key,
     required this.child,
     required this.onPressed,
@@ -30,9 +30,9 @@ class TonalButton extends StatelessWidget {
       key: key,
       style: ElevatedButton.styleFrom(
         // Foreground color
-        onPrimary: scheme.onPrimaryContainer,
+        onPrimary: scheme.onPrimary,
         // Background color
-        primary: scheme.primaryContainer,
+        primary: scheme.primary,
       ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
       onPressed: onPressed,
       onLongPress: onLongPress,

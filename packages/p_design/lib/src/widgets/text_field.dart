@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../icons/p_icons.dart';
@@ -7,17 +8,20 @@ class CustomReactiveTextField<T> extends StatefulWidget {
   final String? hintText;
   final String? labelText;
   final String? formControlName;
+  final FormControl<T>? formControl;
   final IconData? prefix;
   final TextInputType? keyboardType;
   final FocusNode? focus;
   final TextInputAction? textInputAction;
-  final Function()? onTap;
+  final VoidCallback? onTap;
   final Color? backgroundColor;
   final Color? contentColor;
   final TextEditingController? controller;
   final int? maxLines;
+  final int? maxLength;
   final bool? obscureText;
   final bool readOnly;
+  final bool dense;
   final Map<String, String> Function(FormControl control)? validationMessages;
   final double? iconSize;
   final EdgeInsets? contentPadding;
@@ -26,6 +30,7 @@ class CustomReactiveTextField<T> extends StatefulWidget {
   final Widget? icon;
   final Widget? suffix;
   final ControlValueAccessor<T, String>? valueAccessor;
+  final List<TextInputFormatter> inputFormatters;
 
   const CustomReactiveTextField({
     Key? key,
@@ -33,6 +38,7 @@ class CustomReactiveTextField<T> extends StatefulWidget {
     this.labelText,
     this.validationMessages,
     this.formControlName,
+    this.formControl,
     this.prefix,
     this.keyboardType,
     this.focus,
@@ -42,6 +48,7 @@ class CustomReactiveTextField<T> extends StatefulWidget {
     this.contentColor,
     this.controller,
     this.maxLines = 1,
+    this.maxLength,
     this.obscureText,
     this.iconSize,
     this.contentPadding,
@@ -50,7 +57,9 @@ class CustomReactiveTextField<T> extends StatefulWidget {
     this.icon,
     this.suffix,
     this.readOnly = false,
+    this.dense = false,
     this.valueAccessor,
+    this.inputFormatters = const [],
   }) : super(key: key);
 
   @override
@@ -60,11 +69,11 @@ class CustomReactiveTextField<T> extends StatefulWidget {
 
 class _CustomReactiveTextFieldState<T>
     extends State<CustomReactiveTextField<T>> {
-  bool? _obscureText;
+  late bool _obscureText;
 
   @override
   void initState() {
-    _obscureText = widget.obscureText;
+    _obscureText = widget.obscureText ?? false;
     super.initState();
   }
 
@@ -73,10 +82,13 @@ class _CustomReactiveTextFieldState<T>
     final themeData = Theme.of(context);
     return ReactiveTextField<T>(
       formControlName: widget.formControlName,
-      obscureText: _obscureText ?? false,
+      formControl: widget.formControl,
+      obscureText: _obscureText,
       focusNode: widget.focus,
       readOnly: widget.readOnly,
-      maxLines: widget.maxLines,
+      maxLines: widget.obscureText != null ? 1 : widget.maxLines,
+      maxLength: widget.maxLength,
+      inputFormatters: widget.inputFormatters,
       onTap: widget.onTap,
       validationMessages: widget.validationMessages,
       textInputAction: widget.textInputAction ?? TextInputAction.next,
@@ -86,9 +98,10 @@ class _CustomReactiveTextFieldState<T>
         contentPadding: widget.contentPadding,
         hintText: widget.hintText,
         labelText: widget.labelText,
+        isDense: widget.dense,
         icon: widget.icon,
         suffix: widget.suffix,
-        suffixIcon: _obscureText != null
+        suffixIcon: widget.obscureText != null
             ? IconButton(
                 onPressed: _onTapEye,
                 splashColor: Colors.transparent,
@@ -105,7 +118,7 @@ class _CustomReactiveTextFieldState<T>
                     ),
                   ),
                   child: Icon(
-                    _obscureText! ? PIcons.outline_hide : PIcons.outline_show,
+                    _obscureText ? PIcons.outline_hide : PIcons.outline_show,
                     size: widget.iconSize,
                     key: Key(
                       _obscureText.toString(),
@@ -126,7 +139,7 @@ class _CustomReactiveTextFieldState<T>
     );
   }
 
-  void _onTapEye() => setState(() => _obscureText = !_obscureText!);
+  void _onTapEye() => setState(() => _obscureText = !_obscureText);
 
   @override
   void dispose() {

@@ -1,12 +1,7 @@
-import 'dart:developer';
-
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'app_loading.dart';
-
-class AppNetworkImage extends StatefulWidget {
+class AppNetworkImage extends StatelessWidget {
   const AppNetworkImage({
     Key? key,
     required this.url,
@@ -83,64 +78,13 @@ class AppNetworkImage extends StatefulWidget {
   final Duration? cacheMaxAge;
 
   @override
-  State<AppNetworkImage> createState() => _AppNetworkImageState();
-}
-
-class _AppNetworkImageState extends State<AppNetworkImage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    _controller = AnimationController(
-        vsync: this,
-        duration: const Duration(seconds: 3),
-        lowerBound: 0.0,
-        upperBound: 1.0);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ExtendedImage.network(
-      widget.url,
-      width: widget.width,
-      height: widget.width,
-      fit: widget.fit,
-      cache: widget.cache,
-      loadStateChanged: (ExtendedImageState state) {
-        switch (state.extendedImageLoadState) {
-          case LoadState.loading:
-            _controller.reset();
-            return const AppLoading();
-
-          case LoadState.completed:
-            _controller.forward();
-            return FadeTransition(
-              opacity: _controller,
-              child: ExtendedRawImage(
-                image: state.extendedImageInfo?.image,
-                width: widget.width,
-                height: widget.height,
-              ),
-            );
-          case LoadState.failed:
-            log(state.lastException.toString(),stackTrace: state.lastStack);
-            _controller.reset();
-            return IconButton(
-              icon: const Icon(Icons.refresh_outlined),
-              onPressed: (){
-                state.reLoadImage();
-              },
-            );
-        }
-      },
+      url,
+      width: width,
+      height: width,
+      fit: fit,
+      cache: cache,
     );
   }
 }

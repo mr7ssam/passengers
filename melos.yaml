@@ -26,3 +26,6 @@ scripts:
       melos exec --depends-on="build_runner" --  $runner
     env:
       runner: flutter pub run build_runner build --delete-conflicting-outputs
+
+  upgrade:
+    run: melos exec flutter pub upgrade

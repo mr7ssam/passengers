@@ -24,7 +24,7 @@ class _SizeReportingWidgetState extends State<SizeReportingWidget> {
   }
 
   void _notifySize() {
-    if (!this.mounted) {
+    if (!mounted) {
       return;
     }
     final size = context.size!;

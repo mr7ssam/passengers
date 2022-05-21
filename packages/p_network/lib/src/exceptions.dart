@@ -1,7 +1,7 @@
 class AppException<OriginalException> implements Exception {
-  AppException({required this.message, required this.exception});
+  const AppException({required this.message, required this.exception});
 
-  AppException.unknown({required this.exception}) : message = 'unknown';
+  const AppException.unknown({required this.exception}) : message = 'unknown';
 
   final OriginalException exception;
   final String message;
@@ -33,8 +33,23 @@ class AppNetworkException<OriginalException extends Exception>
     required OriginalException exception,
   }) : super(exception: exception, message: reason.name);
 
+  AppNetworkException._({
+    required this.reason,
+    required OriginalException exception,
+    required String message,
+  }) : super(exception: exception, message: message);
+
   /// The reason the network exception occurred.
   final AppNetworkExceptionReason reason;
+
+  @override
+  AppNetworkException copyWith(
+      {OriginalException? exception, String? message}) {
+    return AppNetworkException._(
+        reason: reason,
+        exception: exception ?? this.exception,
+        message: message ?? this.message);
+  }
 }
 
 class AppNetworkResponseException<OriginalException extends Exception, DataType>
@@ -66,5 +81,17 @@ class AppNetworkResponseException<OriginalException extends Exception, DataType>
     final statusCode = this.statusCode;
     if (statusCode == null) return false;
     return evaluator(statusCode);
+  }
+}
+
+extension AppExceptionExt on AppException {
+  bool get noInternetConnection => isThis(AppNetworkExceptionReason.noInternet);
+
+  bool isThis(AppNetworkExceptionReason reason) {
+    if (this is AppNetworkException<dynamic>) {
+      final e = this as AppNetworkException;
+      return e.reason == reason;
+    }
+    return false;
   }
 }

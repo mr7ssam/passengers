@@ -58,6 +58,7 @@ abstract class PRadius {
   PRadius._();
 
   static const button = 12.0;
+  static const floatingButton = 20.0;
   static const container = 12.0;
   static const texFiled = 12.0;
   static const chip = 12.0;
@@ -68,8 +69,12 @@ abstract class PEdgeInsets {
   PEdgeInsets._();
 
   static final listView = REdgeInsets.all(LayoutConstrains.m3);
+  static final bottomFloatBuffer =
+      REdgeInsets.only(bottom: LayoutConstrains.l3);
   static final horizontal =
       REdgeInsets.symmetric(horizontal: LayoutConstrains.m3);
+  static final vertical =
+      REdgeInsets.symmetric(vertical: LayoutConstrains.m3, horizontal: 0);
   static final dHorizontal =
       REdgeInsets.symmetric(horizontal: LayoutConstrains.l2);
 }

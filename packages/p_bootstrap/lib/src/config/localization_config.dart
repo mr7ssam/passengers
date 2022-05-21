@@ -24,7 +24,7 @@ class LocalizationConfig {
 
   final String path;
 
-  final assetLoader;
+  final dynamic assetLoader;
 
   final bool saveLocale;
 }

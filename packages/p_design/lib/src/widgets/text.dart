@@ -603,7 +603,7 @@ class YouText extends Text {
         break;
     }
     return DefaultTextStyle.merge(
-      style: style ?? TextStyle(),
+      style: style ?? const TextStyle(),
       child: Builder(builder: (context) => super.build(context)),
     );
   }

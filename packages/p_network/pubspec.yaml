@@ -12,11 +12,8 @@ dependencies:
     sdk: flutter
   dio: ^4.0.6
   freezed_annotation: ^1.1.0
-  refresh_bot:
-    git:
-      url: git@github.com:flutterbots/flutterbots.git
-      path: packages/refresh_bot
-
+  dio_refresh_bot: ^1.0.2
+  bot_storage: ^1.0.2
 
 
 dev_dependencies:
