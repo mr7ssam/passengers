@@ -1,13 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:p_network/p_http_client.dart';
-
-extension AppExceptionExt on AppException {
-  AppException tr() => copyWith(
-        message: message.tr(),
-      );
-}
+import 'package:reactive_forms/reactive_forms.dart';
 
 extension EnumExt on Enum {
   bool when(Enum value) => value == this;
@@ -29,6 +22,15 @@ extension TimeExt on TimeOfDay {
   }
 }
 
+extension FormGroupExt on AbstractControl {
+  bool isValid() {
+    if (!valid) {
+      markAllAsTouched();
+    }
+    return valid;
+  }
+}
+
 extension IterableExt<T> on Iterable<T> {
   Iterable<T> superJoin(T separator) {
     final iterator = this.iterator;
@@ -41,6 +43,17 @@ extension IterableExt<T> on Iterable<T> {
         ..add(iterator.current);
     }
     return _l;
+  }
+}
+
+extension StringEx on String? {
+  DateTime? toDateTimeOrNull() {
+    if (this == null) return null;
+    try {
+      return DateTime.parse(this!);
+    } catch (e) {
+      return null;
+    }
   }
 }
 

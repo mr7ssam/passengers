@@ -8,4 +8,5 @@ Future<void> inject() async {
   await common();
   await user();
   await category();
+  product();
 }

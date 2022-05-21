@@ -14,3 +14,9 @@ class AppMangerStateChanged extends AppMangerEvent {
 
   final AppState state;
 }
+
+class AppMangerUserChanged extends AppMangerEvent {
+  const AppMangerUserChanged({required this.user});
+
+  final User? user;
+}

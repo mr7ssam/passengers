@@ -9,21 +9,24 @@ enum AppState {
 @immutable
 class AppMangerState {
   final AppState state;
+  final User? user;
 
-  const AppMangerState({required this.state});
+  const AppMangerState({required this.state, this.user});
 
-  const AppMangerState.initial() : this(state: AppState.splash);
+  const AppMangerState.initial() : this(state: AppState.splash, user: null);
 
   AppMangerState copyWith({
     AppState? state,
+    User? user,
   }) {
     return AppMangerState(
       state: state ?? this.state,
+      user: user ?? this.user,
     );
   }
 
   @override
   String toString() {
-    return {'state': state.name}.toString();
+    return 'AppMangerState{state: $state, user: $user}';
   }
 }

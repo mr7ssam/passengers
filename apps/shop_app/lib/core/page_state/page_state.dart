@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:p_design/p_design.dart';
+import 'package:p_network/p_http_client.dart';
+import 'package:shop_app/app/product/presentation/pages/food_menu/food_menu_page.dart';
 
 part 'page_state.freezed.dart';
 
@@ -14,19 +16,25 @@ class PageState<T> with _$PageState<T> {
 
   const factory PageState.empty() = _Empty<T>;
 
-  const factory PageState.error({required String error}) = _Error<T>;
+  const factory PageState.error({required AppException exception}) = _Error<T>;
 }
 
-extension PageStateEx on PageState {
-  bool get isInit => maybeWhen(orElse: () => false, init: () => true);
+extension PageStateEx<T> on PageState<T> {
+  bool get isLoading => this is _Lodaing;
 
-  bool get isLoading => maybeWhen(orElse: () => false, loading: () => true);
+  bool get isLoaded => this is _Loaded;
 
-  bool get isLoaded => maybeWhen(orElse: () => false, loaded: (_) => true);
+  bool get isEmpty => this is _Empty;
 
-  bool get isEmpty => maybeWhen(orElse: () => false, empty: () => true);
+  bool get isError => this is _Error;
 
-  bool get isError => maybeWhen(orElse: () => false, error: (_) => true);
+  _Lodaing<T> get loading => this as _Lodaing<T>;
+
+  _Loaded<T> get loaded => this as _Loaded<T>;
+
+  T get data => (this as _Loaded).data;
+
+  String get error => (this as _Error).error;
 }
 
 class PageStateBuilder<T> extends StatelessWidget {
@@ -43,7 +51,7 @@ class PageStateBuilder<T> extends StatelessWidget {
   final Widget Function()? init;
   final Widget Function()? loading;
   final Widget Function(T data) success;
-  final Widget Function(String message)? error;
+  final Widget Function(AppException message)? error;
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +59,24 @@ class PageStateBuilder<T> extends StatelessWidget {
     result.maybeWhen(
       orElse: () => next = const SizedBox(),
       init: () => next = init?.call() ?? const SizedBox(),
-      loading: () => next =
-          Center(child: loading?.call() ?? const AppLoading()),
+      loading: () =>
+          next = Center(child: loading?.call() ?? const AppLoading()),
       loaded: (T data) => next = success(data),
-      error: (message) =>
-          next = Center(child: error?.call(message) ?? Text(message)),
+      error: (e) => next = error?.call(e) ??
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: SizedBox(
+                  height: constraints.maxHeight,
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(
+                    child: error?.call(e) ?? APIErrorWidget(exception: e),
+                  ),
+                ),
+              );
+            },
+          ),
     );
     return next;
   }

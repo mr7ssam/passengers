@@ -2,9 +2,8 @@ import 'package:hive/hive.dart';
 import 'package:p_network/p_http_client.dart';
 import 'package:p_network/p_refresh_token.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shop_app/features/user/data/local/data_sources/token_storage.dart';
-import 'package:shop_app/features/user/data/local/data_sources/user_storage.dart';
-import 'package:shop_app/features/user/data/local/models/token.dart';
+import 'package:shop_app/app/user/data/local/data_sources/token_storage.dart';
+import 'package:shop_app/app/user/data/local/models/token.dart';
 
 import '../../common/const/const.dart';
 import '../../core/storage/storage_service.dart';
@@ -22,27 +21,38 @@ Future<void> common() async {
 }
 
 Future<void> _regDioClient() async {
-  final DioClient dioClient = DioClient(kBaseUrl);
+  final DioClient dioClient = DioClient(kBaseAPIUrl);
+  final logInterceptor = LogInterceptor(
+    responseBody: true,
+    error: true,
+    requestHeader: true,
+    responseHeader: true,
+    request: true,
+    requestBody: true,
+  );
   dioClient.interceptors.addAll([
     RefreshTokenInterceptor<AuthTokenModel>(
       dio: dioClient,
+      tokenDio: Dio(
+        BaseOptions()..baseUrl = kBaseAPIUrl,
+      )..interceptors.add(logInterceptor),
       tokenStorage: TokenStorageImpl(si()),
       refreshToken: (token, dio) async {
-        final result = await dio.post(APIRoutes.account.refreshToken, data: {
-          'refreshToken': token.refreshToken,
-          'id': si<UserStorage>().read()!.id,
-        });
+        final result = await dio.post(
+          APIRoutes.shop.refreshToken,
+          queryParameters: {
+            'refreshToken': token.refreshToken,
+          },
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${token.accessToken}',
+            },
+          ),
+        );
         return AuthTokenModel.fromMap(result.data);
       },
     ),
-    LogInterceptor(
-      responseBody: true,
-      error: true,
-      requestHeader: true,
-      responseHeader: true,
-      request: true,
-      requestBody: true,
-    ),
+    logInterceptor,
   ]);
   si.registerSingleton<Dio>(dioClient);
 }
