@@ -1,10 +1,9 @@
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/product/data/remote/data_sources/remote.dart';
 import 'package:shop_app/app/product/domain/entities/home_data.dart';
 import 'package:shop_app/app/product/domain/entities/product.dart';
 import 'package:shop_app/app/product/domain/entities/product_details.dart';
 import 'package:shop_app/app/product/domain/repositories/repo.dart';
-import 'package:shop_app/core/remote/data_wrappers.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class ProductRepo extends IProductRepo {
   final ProductRemote _remote;

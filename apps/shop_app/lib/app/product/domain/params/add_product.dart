@@ -1,7 +1,7 @@
+import 'package:p_core/p_core.dart';
 import 'package:p_network/p_http_client.dart';
 import 'package:reactive_image_picker/image_file.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class AddProductParams extends FormDataParams {
   AddProductParams({
@@ -21,14 +21,14 @@ class AddProductParams extends FormDataParams {
   final Duration prepareTime;
 
   @override
-  FormData toFromData() {
+  Future<FormData> toFromData() async {
     return FormData.fromMap(
       toMap()
         ..addAll(
           {
             if (image.image != null)
               'imageFile': MultipartFile.fromFileSync(
-                image.image!.path,
+                (await compressImage(image.image!))!.path,
               )
           },
         ),
@@ -54,7 +54,7 @@ class AddProductParams extends FormDataParams {
       'description': description,
       'tagId': tag.id,
       'prepareTime': prepareTime.inSeconds,
-      'price': price,
+      'price': price.toInt(),
     };
   }
 

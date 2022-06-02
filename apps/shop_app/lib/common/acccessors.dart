@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
-import 'package:shop_app/core/extension.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 import '../app/user/domain/entities/work_days.dart';

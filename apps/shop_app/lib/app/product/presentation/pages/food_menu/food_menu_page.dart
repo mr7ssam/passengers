@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
-import 'package:p_network/p_http_client.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
 import 'package:shop_app/app/product/domain/entities/product.dart';
 import 'package:shop_app/app/product/presentation/pages/add_new_product/add_new_product_screen.dart';
 import 'package:shop_app/app/root/presentation/pages/home/home.dart';
 import 'package:shop_app/injection/service_locator.dart';
-import 'package:shop_app/resources/resources.dart';
 
 import '../../../../category/application/api.dart';
 import '../../widgets/food_item.dart';
@@ -94,32 +92,6 @@ class FoodMenuPage extends StatelessWidget {
               },
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class APIErrorWidget extends StatelessWidget {
-  const APIErrorWidget({
-    Key? key,
-    required this.exception,
-  }) : super(key: key);
-
-  final AppException exception;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            exception.noInternetConnection
-                ? EmptyState.noInternetConnection
-                : EmptyState.somethingWentWrong,
-          ),
-          YouText.bodySmall(exception.message)
         ],
       ),
     );

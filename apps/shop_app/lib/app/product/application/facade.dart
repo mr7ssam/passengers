@@ -1,9 +1,6 @@
-import 'package:p_network/api_result.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/product/domain/entities/home_data.dart';
 import 'package:shop_app/app/product/domain/entities/product.dart';
-import 'package:shop_app/core/remote/api_utils.dart';
-import 'package:shop_app/core/remote/data_wrappers.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 import '../domain/entities/product_details.dart';
 import '../domain/repositories/repo.dart';

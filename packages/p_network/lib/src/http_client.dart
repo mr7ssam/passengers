@@ -3,8 +3,7 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-
-import 'exceptions.dart';
+import 'package:p_core/p_core.dart';
 
 /// A callback that returns a Dio response, presumably from a Dio method
 /// it has called which performs an HTTP request, such as `dio.get()`,
@@ -14,12 +13,13 @@ typedef HttpLibraryMethod<T> = Future<Response<T>> Function();
 /// Function which takes a Dio response object and optionally maps it to an
 /// instance of [AppHttpClientException].
 typedef ResponseExceptionMapper = AppException? Function(
-    Response response,
-    Exception e,
-    );
+  Response response,
+  Exception e,
+);
 
 class DioClient with DioMixin implements Dio {
-  DioClient(this.baseUrl, {
+  DioClient(
+    this.baseUrl, {
     this.exceptionMapper,
     BaseOptions? baseOptions,
     List<Interceptor> interceptors = const [],
@@ -39,7 +39,8 @@ class DioClient with DioMixin implements Dio {
   final String baseUrl;
 
   @override
-  Future<Response<T>> get<T>(String path, {
+  Future<Response<T>> get<T>(
+    String path, {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
@@ -47,19 +48,19 @@ class DioClient with DioMixin implements Dio {
     ResponseExceptionMapper? exceptionMapper,
   }) {
     return _mapException(
-          () =>
-          super.get(
-            path,
-            queryParameters: queryParameters,
-            options: options,
-            onReceiveProgress: onReceiveProgress,
-            cancelToken: cancelToken,
-          ),
+      () => super.get(
+        path,
+        queryParameters: queryParameters,
+        options: options,
+        onReceiveProgress: onReceiveProgress,
+        cancelToken: cancelToken,
+      ),
     );
   }
 
   @override
-  Future<Response<T>> post<T>(String path, {
+  Future<Response<T>> post<T>(
+    String path, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -69,21 +70,21 @@ class DioClient with DioMixin implements Dio {
     ResponseExceptionMapper? exceptionMapper,
   }) {
     return _mapException(
-          () =>
-          super.post(
-            path,
-            data: data,
-            options: options,
-            queryParameters: queryParameters,
-            cancelToken: cancelToken,
-            onSendProgress: onSendProgress,
-            onReceiveProgress: onReceiveProgress,
-          ),
+      () => super.post(
+        path,
+        data: data,
+        options: options,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      ),
     );
   }
 
   @override
-  Future<Response<T>> put<T>(String path, {
+  Future<Response<T>> put<T>(
+    String path, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -93,21 +94,21 @@ class DioClient with DioMixin implements Dio {
     ResponseExceptionMapper? exceptionMapper,
   }) {
     return _mapException(
-          () =>
-          super.put(
-            path,
-            data: data,
-            queryParameters: queryParameters,
-            options: options,
-            cancelToken: cancelToken,
-            onSendProgress: onSendProgress,
-            onReceiveProgress: onReceiveProgress,
-          ),
+      () => super.put(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      ),
     );
   }
 
   @override
-  Future<Response<T>> delete<T>(String path, {
+  Future<Response<T>> delete<T>(
+    String path, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -115,18 +116,18 @@ class DioClient with DioMixin implements Dio {
     ResponseExceptionMapper? exceptionMapper,
   }) {
     return _mapException(
-          () =>
-          super.delete(
-            path,
-            data: data,
-            queryParameters: queryParameters,
-            options: options,
-            cancelToken: cancelToken,
-          ),
+      () => super.delete(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+      ),
     );
   }
 
-  Future<Response<T>> _mapException<T>(HttpLibraryMethod<T> method, {
+  Future<Response<T>> _mapException<T>(
+    HttpLibraryMethod<T> method, {
     ResponseExceptionMapper? mapper,
   }) async {
     try {
@@ -153,8 +154,8 @@ class DioClient with DioMixin implements Dio {
             exception: exception,
           );
         case DioErrorType.response:
-        // For DioErrorType.response, we are guaranteed to have a
-        // response object present on the exception.
+          // For DioErrorType.response, we are guaranteed to have a
+          // response object present on the exception.
           final response = exception.response;
           if (response == null || response is! Response<T>) {
             // This should never happen, judging by the current source code

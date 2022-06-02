@@ -1,12 +1,12 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:p_network/api_result.dart';
+import 'package:p_core/p_core.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_image_picker/image_file.dart';
 import 'package:shop_app/app/product/application/facade.dart';
 import 'package:shop_app/app/product/domain/entities/product.dart';
 import 'package:shop_app/app/product/domain/params/add_product.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
+import 'package:shop_app/common/utils.dart';
 
 import '../../../../category/domain/entities/tag.dart';
 
@@ -42,7 +42,11 @@ class AddProductProvider extends ChangeNotifier {
     'prepareTime': controls.duration,
   });
 
-  Future<void> submitted() async {
+  Future<void> submitted(BuildContext context) async {
+    if (controls.tags.value == null) {
+      dismissAllAndShowError(context, 'Select tag!');
+      return;
+    }
     if (formGroup.valid) {
       pageState = const PageState.loading();
 
@@ -84,10 +88,10 @@ class _Controls {
     ],
   );
   final tags = FormControl<Tag>(
-    validators: [
-      Validators.required,
-    ],
-  );
+      // validators: [
+      //   Validators.required,
+      // ],
+      );
   final name = FormControl(
     validators: [
       Validators.required,

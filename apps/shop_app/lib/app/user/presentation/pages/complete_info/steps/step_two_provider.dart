@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_wizard/flutter_wizard.dart';
+import 'package:p_core/p_core.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shop_app/app/category/application/api.dart';
 import 'package:shop_app/app/category/domain/entities/category.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
+import 'package:shop_app/common/utils.dart';
 
 import '../bloc/complete_information_bloc.dart';
 
@@ -74,6 +75,10 @@ class CompleteInfoStepTowProvider with WizardStep, ChangeNotifier {
 
   onSubmitted(BuildContext context) {
     if (form.valid) {
+      if (tagControl.value?.isEmpty ?? true) {
+        dismissAllAndShowError(context, 'Select one tag at least');
+        return;
+      }
       context
           .read<CompleteInformationBloc>()
           .add(CompleteInformationSubmitted());

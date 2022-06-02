@@ -81,7 +81,8 @@ class LoginScreen extends StatelessWidget {
                               ValidationMessage.required:
                                   LocaleKeys.validations_user_name.tr(),
                             },
-                            formControlName: LoginBloc.nameControllerName,
+                            formControlName:
+                                LoginBloc.phoneNumberControllerName,
                             keyboardType: TextInputType.emailAddress,
                           ),
                           Space.vM2,

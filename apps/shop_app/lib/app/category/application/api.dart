@@ -1,9 +1,8 @@
 import 'package:darq/darq.dart';
-import 'package:p_network/p_http_client.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/category/application/facade.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
 
-import '../../../core/remote/params.dart';
 import '../domain/entities/category.dart';
 
 class CategoryApi {

@@ -1,6 +1,6 @@
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:map_location_picker/google_map_location_picker.dart';
-import 'package:shop_app/core/remote/params.dart';
+import 'package:p_core/p_core.dart';
 
 class SignUpParams extends Params {
   final String phoneNumber;

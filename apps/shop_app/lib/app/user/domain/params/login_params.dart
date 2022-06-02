@@ -1,4 +1,4 @@
-import 'package:shop_app/core/remote/params.dart';
+import 'package:p_core/p_core.dart';
 
 class LoginParams extends Params {
   LoginParams({required this.userName, required this.password});

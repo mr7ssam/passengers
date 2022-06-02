@@ -14,12 +14,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>(_handler);
   }
 
-  static const nameControllerName = 'userName';
+  static const phoneNumberControllerName = 'phoneNumber';
   static const passwordControllerName = 'password';
 
   final FormGroup form = FormGroup(
     {
-      nameControllerName: FormControl(
+      phoneNumberControllerName: FormControl(
         validators: [Validators.required],
       ),
       passwordControllerName: FormControl(

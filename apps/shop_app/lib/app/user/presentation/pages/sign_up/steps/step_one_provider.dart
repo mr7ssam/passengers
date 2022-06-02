@@ -1,8 +1,7 @@
 import 'package:flutter_wizard/flutter_wizard.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:p_core/p_core.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-
-import '../../../../../../core/mixins/mixins.dart';
 
 class StepOneProvider with WizardStep, DisposableMixin {
   static const phoneNumberControllerName = 'phoneNumber';

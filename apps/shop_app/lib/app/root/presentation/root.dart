@@ -8,7 +8,6 @@ import 'package:p_design/p_design.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/app/product/presentation/pages/food_menu/food_menu_page.dart';
 import 'package:shop_app/app/root/presentation/manager/root_manger.dart';
-import 'package:shop_app/resources/resources.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 import 'pages/home/home.dart';
@@ -32,6 +31,7 @@ class RootScreen extends StatelessWidget {
     final coming = Center(
       child: SvgPicture.asset(
         EmptyState.comingSoon,
+        package: kDesignPackageName,
       ),
     );
     return Scaffold(
@@ -63,7 +63,7 @@ class RootScreen extends StatelessWidget {
                   ),
                   const NavigationDestination(
                     icon: Icon(PIcons.outline_fire),
-                    selectedIcon: Icon(PIcons.fill_fire),
+                    selectedIcon: Icon(PIcons.fill_offer),
                     label: '',
                   ),
                   const NavigationDestination(

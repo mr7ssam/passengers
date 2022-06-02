@@ -29,3 +29,7 @@ scripts:
 
   upgrade:
     run: melos exec flutter pub upgrade
+
+  spider:
+    run: |
+      melos exec  --scope="*p_design*" -- spider build

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/product/application/facade.dart';
 import 'package:shop_app/app/product/domain/entities/home_data.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
 
 class HomeProvider extends ChangeNotifier {
   HomeProvider(this._productFacade) : _state = const PageState.loading();

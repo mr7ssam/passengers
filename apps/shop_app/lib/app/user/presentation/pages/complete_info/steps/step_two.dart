@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_dropdown_search/reactive_dropdown_search.dart';
 import 'package:shop_app/app/category/domain/entities/category.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
-import 'package:shop_app/core/extension.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
 import 'package:shop_app/generated/locale_keys.g.dart';
 
 import '../components/work_hours_bottom_sheet.dart';

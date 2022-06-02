@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:p_network/api_result.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../theme/const.dart';
@@ -25,6 +25,7 @@ class CustomChipSelect<T> extends StatefulWidget {
   final Future<ApiResult<List<T>>> Function()? asyncItems;
   final EdgeInsets? padding;
   final bool isMulti;
+  final bool isLoading;
 
   const CustomChipSelect({
     Key? key,
@@ -37,6 +38,7 @@ class CustomChipSelect<T> extends StatefulWidget {
     this.padding,
     this.asyncItems,
     this.isMulti = false,
+    this.isLoading = false,
   })  : selectedItems = const [],
         onChangedMulti = null,
         super(key: key);
@@ -52,6 +54,7 @@ class CustomChipSelect<T> extends StatefulWidget {
     this.allSelected = false,
     this.padding,
     this.asyncItems,
+    this.isLoading = false,
   })  : selectedItem = null,
         onChangedMulti = onChanged,
         onChanged = null,
@@ -115,6 +118,9 @@ class _CustomChipSelectState<T> extends State<CustomChipSelect<T>> {
   }
 
   RenderObjectWidget _build(List<T> items) {
+    if (widget.isLoading) {
+      return _shimmerLoading();
+    }
     if (widget.type == CustomChipSelectType.list) {
       return RSizedBox(
         height: 50,
@@ -161,7 +167,7 @@ class _CustomChipSelectState<T> extends State<CustomChipSelect<T>> {
       _selectedItems.add(item);
     }
     if (widget.isMulti) {
-      widget.onChangedMulti?.call(items);
+      widget.onChangedMulti?.call(_selectedItems);
     } else {
       widget.onChanged?.call(_selectedItems.firstOrNull);
     }

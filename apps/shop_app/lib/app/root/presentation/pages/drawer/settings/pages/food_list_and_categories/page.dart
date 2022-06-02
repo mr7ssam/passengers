@@ -1,16 +1,14 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
 import 'package:shop_app/app/root/presentation/pages/drawer/settings/pages/food_list_and_categories/provider.dart';
 import 'package:shop_app/app/root/presentation/pages/home/home.dart';
 import 'package:shop_app/app/user/presentation/pages/complete_info/components/work_hours_bottom_sheet.dart';
-import 'package:shop_app/core/extension.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
 import 'package:shop_app/injection/service_locator.dart';
-import 'package:shop_app/resources/resources.dart';
 
 class FoodListCategoriesSettings extends StatelessWidget {
   const FoodListCategoriesSettings({Key? key}) : super(key: key);

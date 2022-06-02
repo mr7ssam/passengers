@@ -1,8 +1,8 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_location_picker/google_map_location_picker.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/category/domain/entities/category.dart';
 import 'package:shop_app/app/user/domain/entities/contact.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class UserInfo extends Params {
   UserInfo({

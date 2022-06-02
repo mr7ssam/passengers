@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:p_design/p_design.dart';
 import 'package:shop_app/app/root/presentation/root.dart';
-import 'package:shop_app/resources/resources.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class GetStartedScreen extends StatelessWidget {

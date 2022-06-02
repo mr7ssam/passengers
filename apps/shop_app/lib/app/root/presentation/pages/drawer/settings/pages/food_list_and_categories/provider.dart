@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/category/application/facade.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class FoodListCategoriesSettingsProvider extends ChangeNotifier {
   FoodListCategoriesSettingsProvider(this._categoryFacade)

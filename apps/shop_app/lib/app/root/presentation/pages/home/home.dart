@@ -4,11 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:p_design/p_design.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/app/product/domain/entities/home_data.dart';
-import 'package:shop_app/app/product/presentation/pages/food_menu/food_menu_page.dart';
 import 'package:shop_app/app/root/presentation/pages/home/provider.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
 import 'package:shop_app/injection/service_locator.dart';
-import 'package:shop_app/resources/resources.dart';
 
 import '../../../../product/domain/entities/product.dart';
 import '../../../../product/presentation/pages/product_details/product_details.dart';
@@ -256,32 +253,32 @@ class VerticalCard extends StatelessWidget {
       title = title + '\n';
     }
     return Card(
-      clipBehavior: Clip.antiAlias,
+        clipBehavior: Clip.antiAlias,
         child: Column(
-      children: [
-        Expanded(
-          child: ImageAvatar(
-            imagePath: imagePath,
-            size: Size.infinite,
-            replacement: const Icon(PIcons.outline_leg_chicken),
-          ),
-        ),
-        Center(
-          child: Padding(
-            padding: REdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                YouText.titleSmall(title, maxLines: 2),
-                if (subtitle != null) ...[
-                  Space.vS2,
-                  Center(child: subtitle!),
-                ]
-              ],
+          children: [
+            Expanded(
+              child: ImageAvatar(
+                imagePath: imagePath,
+                size: Size.infinite,
+                replacement: const Icon(PIcons.outline_leg_chicken),
+              ),
             ),
-          ),
-        ),
-      ],
-    ));
+            Center(
+              child: Padding(
+                padding: REdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    YouText.titleSmall(title, maxLines: 2),
+                    if (subtitle != null) ...[
+                      Space.vS2,
+                      Center(child: subtitle!),
+                    ]
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ));
   }
 }

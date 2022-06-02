@@ -1,5 +1,5 @@
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/product/domain/entities/product_details.dart';
-import 'package:shop_app/core/extension.dart';
 
 import '../../../../category/domain/entities/tag.dart';
 
@@ -72,7 +72,7 @@ class ProductDetailsDto {
       rateNumber: rateNumber,
       available: available,
       prepareTime: Duration(seconds: prepareTime),
-      discountStartDate: discountStartDate.toDateTimeOrNull(),
+      discountStartDate: discountStartDate?.toDateTimeOrNull(),
       discountEndDate: discountEndDate.toDateTimeOrNull(),
       rates: rates,
     );

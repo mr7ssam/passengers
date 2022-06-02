@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_wizard/flutter_wizard.dart';
 import 'package:go_router/go_router.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
 import 'package:shop_app/app/user/presentation/pages/complete_info/steps/step_two.dart';
 import 'package:shop_app/app/user/presentation/pages/sign_up/components/expandable_wizard.dart';
 import 'package:shop_app/common/utils.dart';
-import 'package:shop_app/core/extension.dart';
 import 'package:shop_app/generated/locale_keys.g.dart';
 import 'package:shop_app/injection/service_locator.dart';
 
