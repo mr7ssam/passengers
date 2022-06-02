@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/product/application/facade.dart';
 import 'package:shop_app/app/product/domain/entities/product.dart';
 import 'package:shop_app/app/product/domain/entities/product_details.dart';
 import 'package:shop_app/app/product/presentation/pages/food_menu/bloc/food_menu_bloc.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class ProductDetailsProvider extends ChangeNotifier {
   ProductDetailsProvider(this._productFacade, this.product)

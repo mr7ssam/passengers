@@ -1,7 +1,6 @@
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/product/domain/entities/product.dart';
 import 'package:shop_app/app/product/domain/entities/product_details.dart';
-import 'package:shop_app/core/remote/data_wrappers.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 import '../entities/home_data.dart';
 

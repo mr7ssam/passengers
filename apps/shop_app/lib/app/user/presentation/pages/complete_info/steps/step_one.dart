@@ -50,7 +50,7 @@ class StepOne extends StatelessWidget {
           ),
           Space.vM4,
           CustomTitle(
-            icon: const Icon(PIcons.outline_date___time),
+            icon: const Icon(PIcons.outline_calendar___time),
             label: Text(
               LocaleKeys.user_complete_information_working_time_title.tr(),
             ),

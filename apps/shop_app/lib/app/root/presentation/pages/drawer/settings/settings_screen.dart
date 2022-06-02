@@ -14,13 +14,10 @@ import 'package:shop_app/app/user/presentation/pages/user_info/user_info_screen.
 import 'package:shop_app/app/user/presentation/provider.dart';
 import 'package:shop_app/common/utils.dart';
 import 'package:shop_app/core/app_manger/bloc/app_manger_bloc.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
 import 'package:shop_app/injection/service_locator.dart';
 
 import 'bloc/settings_bloc.dart';
 import 'pages/food_list_and_categories/page.dart';
-
-enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -44,7 +41,7 @@ class SettingsScreen extends StatelessWidget {
         actions: [
           PopupMenuButton(
             icon: const Icon(PIcons.outline_kabab),
-            itemBuilder: (context) => <PopupMenuEntry<WhyFarther>>[
+            itemBuilder: (context) => <PopupMenuEntry>[
               PopupMenuItem(
                 onTap: () {
                   context.pushNamed(UserInfoScreen.name);
@@ -170,7 +167,7 @@ class SettingsScreen extends StatelessWidget {
                         },
                       ),
                       CustomListTile(
-                        icon: const Icon(PIcons.outline_date___time),
+                        icon: const Icon(PIcons.outline_calendar___time),
                         text: 'Manage schedule work',
                         onTap: () {
                           context.pushNamed(WorkingDaysSettings.name);

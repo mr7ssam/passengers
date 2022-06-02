@@ -4,12 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_location_picker/google_map_location_picker.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
-import 'package:p_network/p_http_client.dart';
 import 'package:reactive_dropdown_search/reactive_dropdown_search.dart';
 import 'package:shop_app/app/category/application/facade.dart';
 import 'package:shop_app/app/category/domain/entities/category.dart';
-import 'package:shop_app/app/product/presentation/pages/food_menu/food_menu_page.dart';
 import 'package:shop_app/injection/service_locator.dart';
 
 import '../../../../../common/const/const.dart';

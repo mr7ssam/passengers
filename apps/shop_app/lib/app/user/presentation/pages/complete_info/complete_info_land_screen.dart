@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:p_design/p_design.dart';
 import 'package:shop_app/app/user/presentation/pages/complete_info/complete_info_screen.dart';
 import 'package:shop_app/core/app_manger/bloc/app_manger_bloc.dart';
-import 'package:shop_app/resources/resources.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class CompleteInfoLandScreen extends StatelessWidget {

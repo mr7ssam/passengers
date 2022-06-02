@@ -1,8 +1,8 @@
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/category/data/remote/remote.dart';
 import 'package:shop_app/app/category/domain/entities/category.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
 import 'package:shop_app/app/category/domain/repositories/repo.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class CategoryRepo implements ICategoryRepo {
   final CategoryRemote _categoryRemote;
@@ -13,13 +13,6 @@ class CategoryRepo implements ICategoryRepo {
   Future<List<Category>> getAll() {
     return _categoryRemote
         .getAllCategory()
-        .then((value) => value.map((e) => e.toModel()).toList());
-  }
-
-  @override
-  Future<List<Tag>> getAllTags() {
-    return _categoryRemote
-        .getAllTags()
         .then((value) => value.map((e) => e.toModel()).toList());
   }
 

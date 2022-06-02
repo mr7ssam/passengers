@@ -1,11 +1,10 @@
+import 'package:p_core/p_core.dart';
 import 'package:p_network/p_http_client.dart';
 import 'package:shop_app/app/user/data/remote/models/complete_info.dart';
 import 'package:shop_app/app/user/data/remote/models/user_dto.dart';
 import 'package:shop_app/app/user/data/remote/models/user_profile_dto.dart';
 import 'package:shop_app/app/user/data/remote/models/working_dto.dart';
 import 'package:shop_app/common/const/const.dart';
-import 'package:shop_app/core/remote/api_utils.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 import 'models/user_info_dto.dart';
 
@@ -32,10 +31,12 @@ class UserRemote {
   }
 
   Future<CompleteInfoDTO> completeInformation(FormDataParams params) async {
+    final formData = await params.toFromData();
+
     return await _dio
         .post(
           APIRoutes.shop.completeInformation,
-          data: params.toFromData(),
+          data: formData,
           cancelToken: params.cancelToken,
         )
         .then((value) =>
@@ -71,10 +72,12 @@ class UserRemote {
   }
 
   Future<String> updateImage(FormDataParams params) async {
+    final formData = await params.toFromData();
+
     return await _dio
         .put(
           APIRoutes.shop.updateImage,
-          data: params.toFromData(),
+          data: formData,
         )
         .then((value) => value.data);
   }

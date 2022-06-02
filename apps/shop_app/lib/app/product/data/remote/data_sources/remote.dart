@@ -1,11 +1,9 @@
 import 'dart:convert';
 
+import 'package:p_core/p_core.dart';
 import 'package:p_network/p_http_client.dart';
 import 'package:shop_app/app/product/data/remote/models/product_dto.dart';
 import 'package:shop_app/common/const/const.dart';
-import 'package:shop_app/core/remote/api_utils.dart';
-import 'package:shop_app/core/remote/data_wrappers.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 import '../models/home_data_dto.dart';
 import '../models/product_details_dto.dart';
@@ -47,17 +45,19 @@ class ProductRemote {
     );
   }
 
-  Future<void> addProduct(FormDataParams params) {
-    return _dio.post(
+  Future<void> addProduct(FormDataParams params) async {
+    final formData = await params.toFromData();
+    await _dio.post(
       APIRoutes.product.addProduct,
-      data: params.toFromData(),
+      data: formData,
     );
   }
 
-  Future<void> updateProduct(FormDataParams params) {
-    return _dio.put(
+  Future<void> updateProduct(FormDataParams params) async {
+    final formData = await params.toFromData();
+    await _dio.put(
       APIRoutes.product.updateProduct,
-      data: params.toFromData(),
+      data: formData,
     );
   }
 

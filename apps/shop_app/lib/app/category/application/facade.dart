@@ -1,10 +1,8 @@
 import 'package:darq/darq.dart';
-import 'package:p_network/p_http_client.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
 import 'package:shop_app/app/category/domain/repositories/repo.dart';
 import 'package:shop_app/app/user/application/api.dart';
-import 'package:shop_app/core/remote/api_utils.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 import '../domain/entities/category.dart';
 
@@ -16,10 +14,6 @@ class CategoryFacade {
 
   Future<ApiResult<List<Category>>> getAll() {
     return toApiResult(() => categoryRepo.getAll());
-  }
-
-  Future<ApiResult<List<Tag>>> getAllTags() {
-    return toApiResult(() => categoryRepo.getAllTags());
   }
 
   Future<ApiResult<List<Tag>>> getShopTags() {

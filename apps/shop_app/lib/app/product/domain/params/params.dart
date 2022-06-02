@@ -1,5 +1,5 @@
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class GetProductParams extends PagingParams {
   GetProductParams({
@@ -8,7 +8,7 @@ class GetProductParams extends PagingParams {
     int pageSize = 20,
   }) : super(page: page, pageSize: pageSize);
 
-  final ProductsFilter filter;
+  final IMap filter;
 
   @override
   Map<String, dynamic> toMap() {

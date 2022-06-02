@@ -23,8 +23,7 @@ class AppDrawer extends StatelessWidget {
             if (user == null) {
               return const SizedBox();
             }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            return ListView(
               children: [
                 RPadding(
                   padding: const EdgeInsets.all(16),

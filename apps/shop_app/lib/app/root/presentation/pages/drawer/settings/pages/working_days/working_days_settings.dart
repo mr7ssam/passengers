@@ -8,7 +8,6 @@ import 'package:shop_app/app/user/domain/entities/work_days.dart';
 import 'package:shop_app/app/user/domain/entities/working_model.dart';
 import 'package:shop_app/app/user/presentation/pages/complete_info/components/work_hours_bottom_sheet.dart';
 import 'package:shop_app/common/acccessors.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
 import 'package:shop_app/injection/service_locator.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 

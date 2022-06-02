@@ -12,7 +12,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-
 /// A [ReactivePhoneFormField] that contains a [PhoneFormField].
 ///
 /// This is a convenience widget that wraps a [PhoneFormField] widget in a

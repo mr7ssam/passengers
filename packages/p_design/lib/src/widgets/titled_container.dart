@@ -14,9 +14,7 @@ class TitledContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = Theme
-        .of(context)
-        .cardColor;
+    final backgroundColor = Theme.of(context).cardColor;
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(

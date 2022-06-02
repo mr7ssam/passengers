@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:meta/meta.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
-import 'package:p_network/api_result.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
 import 'package:shop_app/app/product/application/facade.dart';
 import 'package:shop_app/app/product/domain/entities/product.dart';
 import 'package:shop_app/app/product/domain/params/params.dart';
-import 'package:shop_app/core/extension.dart';
 
 part 'food_menu_event.dart';
 part 'food_menu_state.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show BuildContext;
+import 'package:flutter/material.dart' show BuildContext, FocusManager;
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/app/root/presentation/pages/get_started/get_started.dart';
@@ -114,10 +114,10 @@ class AppRouter {
   ];
 
   _rootRedirect(BuildContext context, GoRouterState state) {
+    FocusManager.instance.primaryFocus?.unfocus();
     final appState = context.read<AppMangerBloc>().state;
 
-    final goingToHome = !(state.location.contains(RootScreen.path));
-    if (goingToHome && appState.state == AppState.authenticated) {
+    if (appState.state == AppState.authenticated) {
       return _userStatusRedirect(context, state, appState);
     }
 
@@ -136,20 +136,23 @@ class AppRouter {
   ) {
     final user = appState.user;
 
-    final goingToComplete =
-        !(state.location.contains(CompleteInfoLandScreen.path));
+    // check if user is complete info
     if (user?.accountStatus == AccountStatus.unCompleted) {
+      final goingToComplete =
+          !(state.location.contains(CompleteInfoLandScreen.path));
       return goingToComplete ? CompleteInfoLandScreen.path : null;
     }
 
-    final goingToGetStarted = !(state.location.contains(GetStartedScreen.path));
+    // check if user is first time user
     final wasInComplete = state.location.contains(CompleteInfoScreen.path);
-    if (wasInComplete && goingToGetStarted) {
+    final goingToGetStarted = !(state.location.contains(GetStartedScreen.path));
+    if (wasInComplete || !goingToGetStarted) {
       return goingToGetStarted ? GetStartedScreen.path : null;
-    } else if (!goingToGetStarted) {
-      return null;
     }
-    return RootScreen.path;
+
+    // user is authenticated and has completed info
+    final goingToHome = !(state.location.contains(RootScreen.path));
+    return goingToHome ? RootScreen.path : null;
   }
 
   static AppRouter of(BuildContext context) {

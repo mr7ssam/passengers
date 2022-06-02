@@ -1,12 +1,10 @@
-import 'package:p_network/p_http_client.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_network/p_refresh_token.dart';
 import 'package:shop_app/app/user/domain/entities/user.dart';
 import 'package:shop_app/app/user/domain/entities/user_info.dart';
 import 'package:shop_app/app/user/domain/entities/user_profile.dart';
 import 'package:shop_app/app/user/domain/entities/working_model.dart';
 import 'package:shop_app/app/user/domain/repositories/repo.dart';
-import 'package:shop_app/core/remote/api_utils.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class UserFacade {
   final IUserRepo _userRepo;

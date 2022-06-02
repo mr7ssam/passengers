@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+import 'package:p_core/p_core.dart';
 import 'package:shop_app/app/user/application/api.dart';
 import 'package:shop_app/app/user/domain/entities/user_profile.dart';
 import 'package:shop_app/app/user/domain/params/edit_image_params.dart';
-import 'package:shop_app/core/extension.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
@@ -34,7 +33,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState>
           },
         );
       } else if (event is SettingsUserImageEdited) {
-        _userAPI.updateImage(FileParams(event.file));
+        _userAPI.updateImage(ImageParams(event.file));
       }
     });
   }

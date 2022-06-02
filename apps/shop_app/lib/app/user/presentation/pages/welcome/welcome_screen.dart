@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:p_design/p_design.dart';
-import 'package:shop_app/resources/resources.dart';
 
 import '../../../../../generated/locale_keys.g.dart';
 import '../login/login_screen.dart';
@@ -35,6 +34,7 @@ class WelcomeScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: SvgPicture.asset(
                 Images.manageShopApp,
+                package: kDesignPackageName,
               ),
             ),
           ),

@@ -1,13 +1,12 @@
 import 'dart:io';
 
+import 'package:p_core/p_core.dart';
 import 'package:p_network/p_http_client.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shop_app/app/category/domain/entities/category.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
-import 'package:shop_app/core/extension.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
-import '../../../../core/remote/params.dart';
 import '../entities/work_days.dart';
 
 class CompleteInformationParams extends FormDataParams {
@@ -32,13 +31,15 @@ class CompleteInformationParams extends FormDataParams {
   });
 
   @override
-  FormData toFromData() {
+  Future<FormData> toFromData() async {
     final map = toMap();
     final formData = FormData.fromMap(map);
     if (image != null) {
       formData.files.add(MapEntry(
         'image',
-        MultipartFile.fromFileSync(image!.path),
+        MultipartFile.fromFileSync(
+          (await compressImage(image!))!.path,
+        ),
       ));
     }
     return formData;

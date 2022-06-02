@@ -1,9 +1,8 @@
+import 'package:p_core/p_core.dart';
 import 'package:p_network/p_http_client.dart';
 import 'package:shop_app/app/category/data/remote/models/category_dto.dart';
 import 'package:shop_app/app/category/data/remote/models/tag_dto.dart';
 import 'package:shop_app/common/const/const.dart';
-import 'package:shop_app/core/remote/api_utils.dart';
-import 'package:shop_app/core/remote/params.dart';
 
 class CategoryRemote {
   final Dio _dio;
@@ -16,17 +15,6 @@ class CategoryRemote {
       () => (response.data as List)
           .map(
             (e) => CategoryDto.fromMap(e),
-          )
-          .toList(),
-    );
-  }
-
-  Future<List<TagDTO>> getAllTags() async {
-    final response = await _dio.get(APIRoutes.tag.getAllTags);
-    return throwAppException(
-      () => (response.data as List)
-          .map(
-            (e) => TagDTO.fromMap(e),
           )
           .toList(),
     );

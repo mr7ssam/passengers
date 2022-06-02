@@ -3,13 +3,12 @@ import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/app/product/presentation/pages/add_new_product/add_new_product_screen.dart';
 import 'package:shop_app/app/product/presentation/pages/product_details/provider.dart';
 import 'package:shop_app/common/utils.dart';
-import 'package:shop_app/core/extension.dart';
-import 'package:shop_app/core/page_state/page_state.dart';
 import 'package:shop_app/injection/service_locator.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -41,6 +40,9 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final query = MediaQuery.of(context);
+    final width = query.size.width;
+    final height = width;
     final provider = context.watch<ProductDetailsProvider>();
     return Scaffold(
       body: PageStateBuilder<ProductDetails>(
@@ -109,7 +111,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ],
-                  expandedHeight: 300.h,
+                  expandedHeight: height,
                   iconTheme: themeData.iconTheme.copyWith(color: Colors.white),
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
