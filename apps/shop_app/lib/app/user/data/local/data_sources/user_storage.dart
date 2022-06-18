@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:p_network/p_refresh_token.dart';
 import 'package:shop_app/app/user/domain/entities/user.dart';
 import 'package:shop_app/common/const/const.dart';
-
+import 'package:bot_storage/bot_storage.dart';
 import '../../../../../core/storage/storage_service.dart';
 
 class UserStorage extends BotStorage<User> with BotStorageMixin<User> {

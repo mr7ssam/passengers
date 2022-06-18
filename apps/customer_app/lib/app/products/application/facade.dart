@@ -39,24 +39,27 @@ class ProductFacade {
     return toApiResult(() => _categoryRepo.getTags(params));
   }
 
-  Future<ApiResult<List<Product>>> getProducts(PagingParams params) {
+  Future<ApiResult<PagingDataWrapper<Product>>> getProducts(
+      PagingParams params) {
     return toApiResult(() => _productRepo.getProducts(params));
   }
 
-  Future<ApiResult<ProductDetails>> getProductDetails(PagingParams params) {
+  Future<ApiResult<ProductDetails>> getProductDetails(Params params) {
     return toApiResult(() => _productRepo.getProductDetails(params));
   }
 
   Future<ApiResult<Tuple2<List<Shop>, List<Tag>>>> getFoodListData() {
-    return toApiResult(() async {
-      final shops =
-          await _shopRepo.getShops(PagingParams(page: 1, pageSize: 10));
-      List<Tag> tags = [];
-      if (shops.isNotEmpty) {
-        tags = await _categoryRepo
-            .getTags(ParamsWrapper({'shopId': shops.first.id}));
-      }
-      return Tuple2(shops, tags);
-    });
+    return toApiResult(
+      () async {
+        final shops =
+            await _shopRepo.getShops(PagingParams(page: 1, pageSize: 10));
+        List<Tag> tags = [];
+        if (shops.isNotEmpty) {
+          tags = await _categoryRepo
+              .getTags(ParamsWrapper({'shopId': shops.first.id}));
+        }
+        return Tuple2(shops, tags);
+      },
+    );
   }
 }

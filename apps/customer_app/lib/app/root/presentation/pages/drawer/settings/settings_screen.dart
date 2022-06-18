@@ -13,6 +13,7 @@ import '../../../../../../common/utils.dart';
 import '../../../../../../core/app_manger/bloc/app_manger_bloc.dart';
 import '../../../../../../injection/service_locator.dart';
 import '../../../../../user/presentation/pages/user_info/user_info_screen.dart';
+import '../../../../../user/presentation/pages/address/my_addresses_screen.dart';
 import '../../../../../user/presentation/provider.dart';
 import 'bloc/settings_bloc.dart';
 
@@ -100,13 +101,25 @@ class SettingsScreen extends StatelessWidget {
             Space.vL1,
             Column(
               children: [
-                CustomListTile(
-                  icon: const Icon(PIcons.outline_profile),
-                  text: 'Personal info',
-                  borderRadius: PRadius.button,
-                  onTap: () {
-                    context.pushNamed(UserInfoScreen.name);
-                  },
+                TitledContainer(
+                  children: [
+                    CustomListTile(
+                      icon: const Icon(PIcons.outline_profile),
+                      text: 'Personal info',
+                      borderRadius: PRadius.button,
+                      onTap: () {
+                        context.pushNamed(UserInfoScreen.name);
+                      },
+                    ),
+                    CustomListTile(
+                      icon: const Icon(PIcons.outline_pin_location),
+                      text: 'My address',
+                      borderRadius: PRadius.button,
+                      onTap: () {
+                        context.pushNamed(MyAddressScreen.name);
+                      },
+                    ),
+                  ],
                 ),
                 Space.vM3,
                 TitledContainer(
@@ -182,20 +195,26 @@ class SettingsScreen extends StatelessWidget {
   Future<void> _onEditImagePressed(BuildContext context) async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
-      File? croppedFile = await ImageCropper().cropImage(
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: image.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,
         ],
-        androidUiSettings: AndroidUiSettings(
-          toolbarTitle: 'Edit your image profile',
-          toolbarColor: Theme.of(context).primaryColor,
-          toolbarWidgetColor: Colors.white,
-          initAspectRatio: CropAspectRatioPreset.square,
-        ),
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Edit your image profile',
+            toolbarColor: Theme.of(context).primaryColor,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.square,
+          )
+        ],
       );
       if (croppedFile != null) {
-        context.read<SettingsBloc>().add(SettingsUserImageEdited(croppedFile));
+        context.read<SettingsBloc>().add(
+              SettingsUserImageEdited(
+                File(croppedFile.path),
+              ),
+            );
       }
     }
   }

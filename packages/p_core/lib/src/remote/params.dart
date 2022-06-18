@@ -25,7 +25,7 @@ abstract class FormDataParams extends Params {
   FutureOr<FormData> toFromData();
 }
 
-class NoParams extends Params  {
+class NoParams extends Params {
   @override
   Map<String, dynamic> toMap() => {};
 }

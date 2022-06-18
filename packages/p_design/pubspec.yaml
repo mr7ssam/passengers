@@ -18,7 +18,8 @@ dependencies:
   flutter_screenutil: ^5.4.0
   flutter_svg: ^1.0.3
   shimmer: ^2.0.0
-  p_core: ^0.0.1
+  p_core:
+    path: ../p_core
 
 
 dev_dependencies:

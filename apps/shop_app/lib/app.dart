@@ -50,7 +50,7 @@ class _AppState extends State<App> {
               child = _easyLoadingInit(context, child);
               return fontBuilder(context, child);
             },
-            title: 'Passengers Shop',
+            title: 'Passengers Customer',
             //useInheritedMediaQuery: true,
             theme: lightTheme,
           ),

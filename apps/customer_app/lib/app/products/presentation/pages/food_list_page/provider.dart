@@ -1,21 +1,31 @@
 import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:p_core/p_core.dart';
 
 import '../../../application/facade.dart';
+import '../../../domain/entities/product.dart';
 import '../../../domain/entities/shop.dart';
 import '../../../domain/entities/tag.dart';
 
 class FoodListPageProvider extends ChangeNotifier {
   FoodListPageProvider(this._productFacade)
       : _shops = [],
-        _pageState = const PageState.loading();
+        _pageState = const PageState.loading() {
+    pagingController.addPageRequestListener((pageKey) {
+      fetchProducts(pageKey);
+    });
+  }
 
   final ProductFacade _productFacade;
+
+  final PagingController<int, Product> pagingController =
+      PagingController<int, Product>(firstPageKey: 1);
 
   PageState<Tuple2<List<Shop>, List<Tag>>> _pageState;
 
   List<Shop> _shops;
+
   Shop? _selectedShop;
 
   Tag? _selectedTag;
@@ -77,26 +87,69 @@ class FoodListPageProvider extends ChangeNotifier {
     );
   }
 
+  fetchProducts(int pageKey) async {
+    final result = await _productFacade.getProducts(FetchProductParams(
+      tag: selectedTag,
+      shop: selectedShop,
+      page: pageKey,
+    ));
+
+    result.when(
+      success: (pagingData) {
+        if (pagingData.isLastPage()) {
+          pagingController.appendLastPage(pagingData.data);
+        } else {
+          final nextPageKey = pageKey + 1;
+          pagingController.appendPage(pagingData.data, nextPageKey);
+        }
+      },
+      failure: (message, e) {
+        pagingController.error = result.failure;
+      },
+    );
+  }
+
   void selectShop(Shop shop) async {
-    if(shop == selectedShop) {
+    if (shop == selectedShop) {
       return;
     }
     final _selectedShop = selectedShop;
     final _tags = tags;
+    final _tag = selectedTag;
     selectedShop = shop;
     tags = null;
     final result = await _productFacade.getTags(
       ParamsWrapper({'shopId': selectedShop!.id}),
     );
-    result.when(success: (tags) {
-      this.tags = tags;
-    }, failure: (_, __) {
-      tags = _tags;
-      selectedShop = _selectedShop;
-    });
+    result.when(
+      success: (tags) {
+        this.tags = tags;
+        selectedTag = null;
+        pagingController.refresh();
+      },
+      failure: (_, __) {
+        tags = _tags;
+        selectedShop = _selectedShop;
+        selectedTag = _tag;
+      },
+    );
   }
 
-  void selectTag(Tag tag) {
+  void selectTag(Tag? tag) {
     selectedTag = tag;
+    pagingController.refresh();
   }
+}
+
+class FetchProductParams extends PagingParams {
+  final Tag? tag;
+  final Shop? shop;
+
+  FetchProductParams({super.page, required this.tag, required this.shop});
+
+  @override
+  Map<String, dynamic> toMap() => {
+        if (tag != null) 'tagId': tag!.id,
+        if (shop != null) 'shopId': shop!.id,
+      }..addAll(super.toMap());
 }

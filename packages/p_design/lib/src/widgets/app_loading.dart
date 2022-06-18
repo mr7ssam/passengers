@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:p_design/p_design.dart';
 
 class AppLoading extends StatelessWidget {
-  const AppLoading({Key? key}) : super(key: key);
+  const AppLoading({Key? key, this.color}) : super(key: key);
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: RPadding(
-          padding: EdgeInsets.all(8),
-          child: CircularProgressIndicator()),
+          padding: const EdgeInsets.all(8),
+          child: CircularProgressIndicator(
+            color: color,
+          )),
     );
   }
 }

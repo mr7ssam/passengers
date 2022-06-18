@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:customer_app/app/user/domain/entities/user.dart';
-import 'package:flutter_wizard/flutter_wizard.dart';
 import 'package:meta/meta.dart';
 import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
@@ -11,9 +10,10 @@ import '../../../../application/facade.dart';
 import '../../../../domain/params/sign_up_params.dart';
 
 part 'sign_up_event.dart';
+
 part 'sign_up_state.dart';
 
-class SignUpBloc extends Bloc<SignUpEvent, SignUpState> with WizardStep {
+class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc(this._userFacade) : super(SignUpInitial()) {
     on<SignUpEvent>(_handler);
   }
@@ -25,7 +25,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> with WizardStep {
 
   FutureOr<void> _handler(SignUpEvent event, Emitter<SignUpState> emit) async {
     if (event is SignUpSubmitted) {
-      if(form.isValid()) {
+      if (form.isValid()) {
         await _mapSubmitted(emit);
       }
     } else if (event is SignUpCanceled) {

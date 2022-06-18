@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -48,10 +51,13 @@ extension IterableExt<T> on Iterable<T> {
 extension StringEx on String? {
   DateTime? toDateTimeOrNull() {
     if (this == null) return null;
-    try {
-      return DateTime.parse(this!);
-    } catch (e) {
-      return null;
-    }
+    return DateTime.parse(this!);
+  }
+}
+
+extension ResponseExt on Response {
+  Map<String, dynamic> pagingData() {
+    final list = headers['x-pagination'];
+    return jsonDecode(list!.first);
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_wizard/flutter_wizard.dart';
 import 'package:go_router/go_router.dart';
 import 'package:p_design/p_design.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/app/user/presentation/pages/sign_up/components/expandable_wizard.dart';
 import 'package:shop_app/app/user/presentation/pages/sign_up/components/sign_up_header.dart';
 import 'package:shop_app/app/user/presentation/pages/sign_up/components/steps_progress.dart';
@@ -32,6 +33,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of(context, listen: false);
     final signUpBloc = context.read<SignUpBloc>();
     return DefaultWizardController(
       stepControllers: [

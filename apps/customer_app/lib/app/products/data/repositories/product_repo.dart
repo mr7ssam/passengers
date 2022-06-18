@@ -11,10 +11,11 @@ class ProductRepo implements IProductRepo {
   ProductRepo(this._productRemote);
 
   @override
-  Future<List<Product>> getProducts(Params params) async {
+  Future<PagingDataWrapper<Product>> getProducts(PagingParams params) async {
     final result = await _productRemote.getProducts(params);
 
-    return result.map((e) => e.toModel()).toList();
+    return result.copyWithData(
+        data: result.data.map((e) => e.toModel()).toList());
   }
 
   @override

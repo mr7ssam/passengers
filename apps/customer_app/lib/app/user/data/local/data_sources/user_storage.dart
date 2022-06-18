@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:p_network/p_refresh_token.dart';
-
 import '../../../../../common/const/const.dart';
 import '../../../../../core/storage/storage_service.dart';
 import '../../../domain/entities/user.dart';
+import 'package:bot_storage/bot_storage.dart';
 
 class UserStorage extends BotStorage<User> with BotStorageMixin<User> {
   final IStorageService storageService;

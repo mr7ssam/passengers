@@ -23,43 +23,44 @@ class _AppState extends State<App> {
     return Providers(
       builder: (context) {
         final appRouter = AppRouter.of(context);
-        return ScreenUtilInit(
-          builder: (_, __) => MaterialApp.router(
-            //   locale: context.locale,
-            localizationsDelegates: const [
-              //  ...context.localizationDelegates,
-              location_picker.S.delegate,
-            ],
-            //    supportedLocales: context.supportedLocales,
-            routeInformationParser: appRouter.goRouter.routeInformationParser,
-            routerDelegate: appRouter.goRouter.routerDelegate,
-            builder: (context, child) {
-              EasyLoading.instance
-                ..indicatorType = EasyLoadingIndicatorType.ripple
-                ..successWidget = SizedBox(
-                  width: 0.7.sw,
-                  child: SvgPicture.asset(
-                    Images.done,
-                    package: kDesignPackageName,
-                    height: 64.r,
-                  ),
-                )
-                ..dismissOnTap = true
-                ..backgroundColor = Theme.of(context).scaffoldBackgroundColor
-                ..maskColor = Theme.of(context).scaffoldBackgroundColor
-                ..maskType = EasyLoadingMaskType.black
-                ..loadingStyle = EasyLoadingStyle.light;
-              child = _easyLoadingInit(context, child);
-              NetworkLoggerOverlay.attachTo(
-                context,
-              );
+        final goRouter = appRouter.goRouter;
 
-              return fontBuilder(context, child);
-            },
-            title: 'Customer Shop',
-            //useInheritedMediaQuery: true,
-            theme: lightTheme,
-          ),
+        return ScreenUtilInit(
+          builder: (_, __) {
+            return MaterialApp.router(
+              localizationsDelegates: const [
+                location_picker.S.delegate,
+              ],
+              routeInformationProvider: goRouter.routeInformationProvider,
+              routeInformationParser: goRouter.routeInformationParser,
+              routerDelegate: goRouter.routerDelegate,
+              builder: (context, child) {
+                EasyLoading.instance
+                  ..indicatorType = EasyLoadingIndicatorType.ripple
+                  ..successWidget = SizedBox(
+                    width: 0.7.sw,
+                    child: SvgPicture.asset(
+                      Images.done,
+                      package: kDesignPackageName,
+                      height: 64.r,
+                    ),
+                  )
+                  ..dismissOnTap = true
+                  ..backgroundColor = Theme.of(context).scaffoldBackgroundColor
+                  ..maskColor = Theme.of(context).scaffoldBackgroundColor
+                  ..maskType = EasyLoadingMaskType.black
+                  ..loadingStyle = EasyLoadingStyle.light;
+                child = _easyLoadingInit(context, child);
+                NetworkLoggerOverlay.attachTo(
+                  context,
+                );
+
+                return fontBuilder(context, child);
+              },
+              title: 'Customer Shop',
+              theme: lightTheme,
+            );
+          },
         );
       },
     );
