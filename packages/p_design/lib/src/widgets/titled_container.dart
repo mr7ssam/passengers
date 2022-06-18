@@ -4,11 +4,11 @@ import 'package:p_design/p_design.dart';
 class TitledContainer extends StatelessWidget {
   const TitledContainer({
     Key? key,
-    required this.title,
+    this.title,
     this.children = const [],
     this.borderRadius = PRadius.button,
   }) : super(key: key);
-  final String title;
+  final String? title;
   final List<Widget> children;
   final double borderRadius;
 
@@ -24,15 +24,16 @@ class TitledContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          RPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                YouText.bodySmall(title),
-              ],
+          if (title != null)
+            RPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  YouText.bodySmall(title!),
+                ],
+              ),
             ),
-          ),
           ...children,
         ],
       ),

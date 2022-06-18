@@ -10,17 +10,25 @@ class ProductRemote {
 
   ProductRemote(this._dio);
 
-  Future<List<ProductDTO>> getProducts(Params params) async {
+  Future<PagingDataWrapper<ProductDTO>> getProducts(Params params) async {
     return throwAppException(
       () => _dio
           .get(
-            APIRoutes.product.getProducts,
-            queryParameters: params.toMap(),
-          )
+        APIRoutes.product.getProducts,
+        queryParameters: params.toMap(),
+      )
           .then(
-            (value) =>
-                (value.data as List).map((e) => ProductDTO.fromMap(e)).toList(),
-          ),
+        (value) {
+          final data =
+              (value.data as List).map((e) => ProductDTO.fromMap(e)).toList();
+          return PagingDataWrapper(
+            data: data,
+            paging: Paging.fromJson(
+              value.pagingData(),
+            ),
+          );
+        },
+      ),
     );
   }
 

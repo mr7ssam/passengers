@@ -7,8 +7,7 @@ import '../../../../../common/const/const.dart';
 import '../../../../../core/storage/storage_service.dart';
 import '../../../domain/entities/token.dart';
 
-class TokenStorageImpl extends BotTokenStorage<AuthTokenModel>
-    with RefreshBotMixin<AuthTokenModel> {
+class TokenStorageImpl extends BotTokenStorage<AuthTokenModel> {
   final IStorageService storageService;
 
   TokenStorageImpl(this.storageService) : super();

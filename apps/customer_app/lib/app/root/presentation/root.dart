@@ -31,6 +31,7 @@ class RootScreen extends StatelessWidget {
     final coming = Center(
       child: SvgPicture.asset(
         EmptyState.comingSoon,
+        package: kDesignPackageName,
       ),
     );
     return Scaffold(

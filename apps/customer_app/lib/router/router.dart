@@ -2,7 +2,10 @@ import 'package:flutter/material.dart' show BuildContext, FocusManager;
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../app/products/presentation/pages/product_details/product_details_screen.dart';
 import '../app/root/presentation/pages/get_started/get_started.dart';
+import '../app/user/presentation/pages/address/add_address/add_address_screen.dart';
+import '../app/user/presentation/pages/address/my_addresses_screen.dart';
 import '../core/app_manger/bloc/app_manger_bloc.dart';
 import 'routes.dart';
 
@@ -46,6 +49,23 @@ class AppRouter {
             ),
           ],
         ),
+        GoRoute(
+          path: ProductDetailsScreen.path,
+          name: ProductDetailsScreen.name,
+          pageBuilder: ProductDetailsScreen.pageBuilder,
+        ),
+        GoRoute(
+          path: MyAddressScreen.path,
+          name: MyAddressScreen.name,
+          pageBuilder: MyAddressScreen.pageBuilder,
+          routes: [
+            GoRoute(
+              path: AddAddressScreen.path,
+              name: AddAddressScreen.name,
+              pageBuilder: AddAddressScreen.pageBuilder,
+            )
+          ],
+        )
       ],
     ),
     GoRoute(

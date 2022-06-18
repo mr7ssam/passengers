@@ -60,7 +60,10 @@ class EmptyWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(path),
+          SvgPicture.asset(
+            path,
+            package: kDesignPackageName,
+          ),
           YouText.bodyLarge(title),
           if (subTitle != null) ...[
             Space.vM1,

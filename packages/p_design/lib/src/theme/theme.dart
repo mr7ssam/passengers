@@ -34,6 +34,8 @@ final lightTheme = ThemeData(
     ),
     cardTheme: CardTheme(
         elevation: 0,
+        clipBehavior: Clip.antiAlias,
+        margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(PRadius.container.r))),
     dialogTheme: DialogTheme(

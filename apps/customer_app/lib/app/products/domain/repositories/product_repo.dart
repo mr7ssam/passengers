@@ -4,6 +4,6 @@ import '../entities/product.dart';
 import '../entities/product_details.dart';
 
 abstract class IProductRepo {
-  Future<List<Product>> getProducts(PagingParams pagingParams);
+  Future<PagingDataWrapper<Product>> getProducts(PagingParams pagingParams);
   Future<ProductDetails> getProductDetails(Params params);
 }

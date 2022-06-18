@@ -26,11 +26,9 @@ class ProductRemote {
                 (e) => ProductDTO.fromMap(e),
               ),
             );
-            var list = response.headers['x-pagination'];
-            var jsonDecode2 = jsonDecode(list!.first);
             return PagingDataWrapper(
               data: data,
-              paging: Paging.fromJson(jsonDecode2),
+              paging: Paging.fromJson(response.pagingData()),
             );
           },
         );
