@@ -24,5 +24,5 @@ String? buildDocUrl(String? url) {
   if (url == null || url.isEmpty) {
     return null;
   }
-  return kBaseUrl + '/' + url;
+  return '$kBaseUrl/$url';
 }

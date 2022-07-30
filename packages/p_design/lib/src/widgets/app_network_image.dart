@@ -85,6 +85,12 @@ class AppNetworkImage extends StatelessWidget {
       height: width,
       fit: fit,
       cache: cache,
+      loadStateChanged: (state) {
+        if (state.extendedImageLoadState == LoadState.failed) {
+          return const Icon(Icons.error_outline);
+        }
+        return null;
+      },
     );
   }
 }

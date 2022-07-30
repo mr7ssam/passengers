@@ -1,20 +1,25 @@
 part of '../const.dart';
 
 const kBaseAPIUrl = '$kBaseUrl/api';
-const kBaseUrl = 'https://nawat-solutions.com';
+const kBaseUrl = 'http://passengers-001-site1.gtempurl.com';
+// const kBaseUrl = 'https://nawat-solutions.com';
 
 abstract class APIRoutes {
   APIRoutes._();
 
-  static const _User user = _User();
+  static const ordersHub = '$kBaseUrl/orderHub';
 
-  static const _Address address = _Address();
+  static const user = _User();
 
-  static const _Shop shop = _Shop();
+  static const address = _Address();
 
-  static const _Category category = _Category();
+  static const shop = _Shop();
 
-  static const _Product product = _Product();
+  static const category = _Category();
+
+  static const product = _Product();
+
+  static const order = _Order();
 }
 
 class _User {
@@ -35,6 +40,7 @@ class _Address {
   final getAll = '/Address/GetCustomerAddresses';
   final add = '/Address/AddCustomerAddress';
   final update = '/Address/UpdateCustomerAddress';
+  final setCurrent = '/Address/SetCurrentAddress';
   final delete = '/Address/Delete';
 }
 
@@ -59,4 +65,15 @@ class _Product {
   final getProducts = '/Customer/GetProducts';
   final getProductDetails = '/Customer/ProductDetails';
   final home = '/Customer/home';
+}
+
+class _Order {
+  const _Order();
+
+  final expectedCost = '/Order/GetExpectedCost';
+  final myCart = '/Order/GetMyCart';
+  final addOrder = '/Order/AddOrder';
+  final orders = '/Order/GetCustomerOrders';
+  final orderDetails = '/Order/GetOrderDetails';
+  final orderById = '/Order/GetCustomerOrderById';
 }

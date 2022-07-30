@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:p_core/p_core.dart';
-import 'package:reactive_forms/reactive_forms.dart';
+import 'package:p_design/p_design.dart';
 
 import '../../../../application/facade.dart';
 import '../../../../domain/entities/user.dart';

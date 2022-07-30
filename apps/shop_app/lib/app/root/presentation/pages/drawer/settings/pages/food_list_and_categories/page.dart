@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
 import 'package:shop_app/app/root/presentation/pages/drawer/settings/pages/food_list_and_categories/provider.dart';
 import 'package:shop_app/app/root/presentation/pages/home/home.dart';
-import 'package:shop_app/app/user/presentation/pages/complete_info/components/work_hours_bottom_sheet.dart';
 import 'package:shop_app/injection/service_locator.dart';
 
 class FoodListCategoriesSettings extends StatelessWidget {

@@ -23,4 +23,6 @@ class UserAPI {
   Stream<AuthStatus> get authStream => _userFacade.authStream;
 
   User? get user => _userFacade.user;
+
+  AuthToken? get authToken => _userFacade.authToken;
 }

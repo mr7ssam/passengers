@@ -2,7 +2,7 @@ import '../../domain/entities/address.dart';
 import 'package:bot_storage/bot_storage.dart';
 
 class AddressBotStorage extends BotStorage<List<Address>>
-    with BotStorageMixin, BotStorageMixin2<Address> {
+    with BotStorageMixin, BotStorageListMixin<Address> {
   @override
   void delete() {
     super.delete();
@@ -14,7 +14,7 @@ class AddressBotStorage extends BotStorage<List<Address>>
   }
 }
 
-mixin BotStorageMixin2<T> on BotStorageMixin<List<T>> {
+mixin BotStorageListMixin<T> on BotStorageMixin<List<T>> {
   List<T> _values = [];
   @override
   read() {
@@ -27,11 +27,15 @@ mixin BotStorageMixin2<T> on BotStorageMixin<List<T>> {
     super.write(value);
   }
 
-  add(T value) {
+  void add(T value) {
     write(List.from(_values)..add(value));
   }
 
-  remove(T value) {
+  void update(T value, int index) {
+    write(List.from(_values)..[index] = value);
+  }
+
+  void remove(T value) {
     write(List.from(_values)..remove(value));
   }
 

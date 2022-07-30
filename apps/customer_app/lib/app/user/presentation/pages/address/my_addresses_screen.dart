@@ -1,13 +1,8 @@
 import 'package:customer_app/app/user/domain/entities/address.dart';
 import 'package:customer_app/app/user/presentation/pages/address/add_address/add_address_screen.dart';
 import 'package:customer_app/app/user/presentation/pages/address/provider.dart';
-import 'package:customer_app/injection/service_locator.dart';
-import 'package:darq/darq.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
-import 'package:map_location_picker/google_map_location_picker.dart';
 import 'package:p_core/p_core.dart';
 import 'package:p_design/p_design.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +17,7 @@ class MyAddressScreen extends StatefulWidget {
   static Page pageBuilder(BuildContext context, GoRouterState state) {
     return MaterialPage<void>(
       key: state.pageKey,
-      child: ChangeNotifierProvider<MyAddressProvider>(
-        create: (context) => MyAddressProvider(si())..init(),
-        child: const MyAddressScreen(),
-      ),
+      child: const MyAddressScreen(),
     );
   }
 
@@ -34,23 +26,26 @@ class MyAddressScreen extends StatefulWidget {
 }
 
 class _MyAddressScreenState extends State<MyAddressScreen> {
-  final ValueNotifier<bool> _loadingCurrentLocation = ValueNotifier(false);
+  @override
+  initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<MyAddressProvider>().start();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: ValueListenableBuilder<bool>(
-          valueListenable: _loadingCurrentLocation,
-          builder: (context, loading, child) => FloatingActionButton(
-            onPressed: loading ? null : () => _onAddAddress(context),
-            child: loading
-                ? AppLoading(
-                    color: themeData.colorScheme.onPrimary,
-                  )
-                : const Icon(PIcons.outline_plus),
-          ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.pushNamed(
+              AddAddressScreen.name,
+            );
+          },
+          child: const Icon(PIcons.outline_plus),
         ),
         appBar: AppBar(),
         body: Column(
@@ -66,7 +61,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                   builder: (context, provider, child) {
                 return RefreshIndicator(
                   onRefresh: () async {
-                    provider.init();
+                    provider.start();
                   },
                   child: StreamBuilder<List<Address>?>(
                     stream: provider.stream,
@@ -92,8 +87,32 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                           final address = addresses[index];
                           return CustomListTile(
                             trilling: PopupMenuButton(
+                              constraints: BoxConstraints(maxWidth: 0.7.sw),
                               icon: const Icon(PIcons.outline_kabab),
                               itemBuilder: (context) => [
+                                if (!address.isCurrentLocation)
+                                  PopupMenuItem(
+                                    onTap: () {
+                                      provider.setCurrentAddress(
+                                          address, index, context);
+                                    },
+                                    child: const ListTile(
+                                      title: Text('Set as current location'),
+                                      leading: Icon(PIcons.outline_check),
+                                    ),
+                                  ),
+                                PopupMenuItem(
+                                  onTap: () {
+                                    context.pushNamed(
+                                      AddAddressScreen.name,
+                                      extra: address,
+                                    );
+                                  },
+                                  child: const ListTile(
+                                    title: Text('Edit address'),
+                                    leading: Icon(PIcons.outline_edit),
+                                  ),
+                                ),
                                 PopupMenuItem(
                                   onTap: () async {
                                     await _onDeletePressed(
@@ -108,24 +127,21 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                     leading: Icon(PIcons.outline_delete),
                                   ),
                                 ),
-                                PopupMenuItem(
-                                  onTap: () {
-                                    context.goNamed(
-                                      AddAddressScreen.name,
-                                      extra: Tuple2(
-                                          address,
-                                          LatLng(double.parse(address.lat),
-                                              double.parse(address.lng))),
-                                    );
-                                  },
-                                  child: const ListTile(
-                                    title: Text('Edit address'),
-                                    leading: Icon(PIcons.outline_edit),
-                                  ),
-                                ),
                               ],
                             ),
                             text: address.title,
+                            textWidget: Row(
+                              children: [
+                                Text(
+                                  address.title,
+                                  style: themeData.textTheme.bodyText1,
+                                ),
+                                Space.hS1,
+                                if (address.isCurrentLocation)
+                                  Icon(PIcons.outline_check,
+                                      color: context.colorScheme.primary),
+                              ],
+                            ),
                             children: <Widget>[
                               const SizedBox.shrink(),
                               CustomTitle(
@@ -161,53 +177,6 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _onAddAddress(BuildContext context) async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    if ((permission == LocationPermission.denied)) {
-      permission = await Geolocator.requestPermission();
-    }
-    if ((permission == LocationPermission.deniedForever)) {
-      await Geolocator.openAppSettings();
-      return;
-    }
-    if (!(permission == LocationPermission.denied)) {
-      late LatLng initPosition;
-      _loadingCurrentLocation.value = true;
-      try {
-        final location = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.lowest,
-            timeLimit: const Duration(seconds: 5));
-        initPosition = LatLng(location.latitude, location.longitude);
-      } catch (e) {
-        initPosition = const LatLng(36.2048, 37.1371);
-      }
-      _loadingCurrentLocation.value = false;
-
-      if (mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return PlacePicker(
-                apiKey: 'AIzaSyA7Brr57aNvZbp8vxe7m2wxJA9k1AyBt_M',
-                onPlacePicked: (result) {
-                  var location = result.geometry!.location;
-                  context.goNamed(
-                    AddAddressScreen.name,
-                    extra: Tuple2(null, LatLng(location.lat, location.lng)),
-                  );
-                  Navigator.of(context).pop();
-                },
-                initialPosition: initPosition,
-                useCurrentLocation: true,
-              );
-            },
-          ),
-        );
-      }
-    }
   }
 
   Future<void> _onDeletePressed(BuildContext context, ThemeData themeData,

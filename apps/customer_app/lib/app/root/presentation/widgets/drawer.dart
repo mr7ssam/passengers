@@ -49,7 +49,7 @@ class AppDrawer extends StatelessWidget {
                   style: ListTileStyle.drawer,
                   horizontalTitleGap: 0,
                   onTap: () {
-                    context.goNamed(SettingsScreen.name);
+                    context.pushNamed(SettingsScreen.name);
                   },
                 ),
                 ListTile(

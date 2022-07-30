@@ -18,3 +18,4 @@ export 'widgets/text.dart';
 export 'widgets/text_field.dart';
 export 'widgets/titled_container.dart';
 export 'widgets/titled_icon.dart';
+export 'widgets/bottom_sheet_wrapper.dart';

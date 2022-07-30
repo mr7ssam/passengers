@@ -8,7 +8,6 @@ import 'package:shop_app/app/category/domain/entities/category.dart';
 import 'package:shop_app/app/category/domain/entities/tag.dart';
 import 'package:shop_app/generated/locale_keys.g.dart';
 
-import '../components/work_hours_bottom_sheet.dart';
 import 'step_two_provider.dart';
 
 class StepTow extends StatelessWidget {

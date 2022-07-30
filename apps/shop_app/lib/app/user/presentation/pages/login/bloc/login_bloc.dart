@@ -14,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>(_handler);
   }
 
-  static const phoneNumberControllerName = 'phoneNumber';
+  static const phoneNumberControllerName = 'userName';
   static const passwordControllerName = 'password';
 
   final FormGroup form = FormGroup(

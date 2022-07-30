@@ -36,9 +36,9 @@ extension FormGroupExt on AbstractControl {
 extension IterableExt<T> on Iterable<T> {
   Iterable<T> superJoin(T separator) {
     final iterator = this.iterator;
-    if (!iterator.moveNext()) return [];
+    if (!iterator.moveNext()) return <T>[];
 
-    final _l = [iterator.current];
+    final _l = <T>[iterator.current];
     while (iterator.moveNext()) {
       _l
         ..add(separator)
@@ -60,4 +60,11 @@ extension ResponseExt on Response {
     final list = headers['x-pagination'];
     return jsonDecode(list!.first);
   }
+}
+
+extension BuildContextExt on BuildContext {
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
+  ThemeData get theme => Theme.of(this);
+  TextTheme get textTheme => Theme.of(this).textTheme;
+  Color get primaryColor => colorScheme.primary;
 }

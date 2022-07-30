@@ -31,7 +31,6 @@ class _AppState extends State<App> {
               localizationsDelegates: const [
                 location_picker.S.delegate,
               ],
-              routeInformationProvider: goRouter.routeInformationProvider,
               routeInformationParser: goRouter.routeInformationParser,
               routerDelegate: goRouter.routerDelegate,
               builder: (context, child) {
@@ -41,7 +40,6 @@ class _AppState extends State<App> {
                     width: 0.7.sw,
                     child: SvgPicture.asset(
                       Images.done,
-                      package: kDesignPackageName,
                       height: 64.r,
                     ),
                   )

@@ -35,7 +35,7 @@ class ShopDTO {
       id: map['id'],
       name: map['name'] ?? '',
       categoryName: map['categoryName'],
-      rate: map['rate'],
+      rate: map['rate'] ?? 0.0,
       online: map['online'],
       imagePath: map['imagePath'],
     );

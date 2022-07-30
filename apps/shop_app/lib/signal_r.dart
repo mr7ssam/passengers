@@ -62,7 +62,7 @@ class SignalRService {
   void on({
     required String hubUrl,
     required String methodName,
-    required MethodInvacationFunc method,
+    required MethodInvocationFunc method,
   }) {
     _assertHubIsBuilt(hubUrl);
     connections[hubUrl]!.on(methodName, method);
@@ -71,7 +71,7 @@ class SignalRService {
   void off({
     required String hubUrl,
     required String methodName,
-    MethodInvacationFunc? method,
+    MethodInvocationFunc? method,
   }) {
     _assertHubIsBuilt(hubUrl);
     connections[hubUrl]!.off(methodName, method: method);
@@ -85,8 +85,9 @@ class SignalRService {
   HttpConnectionOptions _defaultHttpConnectionOptions(String hubName) {
     return HttpConnectionOptions(
       logMessageContent: true,
+      requestTimeout: 700000,
       accessTokenFactory: () async =>
-          'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjY0NmJmMGQ3LWNjNjgtNGQ2YS1lNWNlLTA4ZGE0Y2ZkMDljYSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJDdXN0b21lcjA5NTYwNTc4ODYiLCJUeXBlIjoiQ3VzdG9tZXIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsImV4cCI6MTY1NTExMTk3MSwiaXNzIjoiaHR0cHM6Ly9uYXdhdC1zb2x1dGlvbnMuY29tLyIsImF1ZCI6Imh0dHBzOi8vbmF3YXQtc29sdXRpb25zLmNvbS8ifQ.xRROu8fA27ghHOSVbg0tF3eGEGcOf6osf3j4m1mxnQc',
+          'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImUzMjU1ZDEzLTkyNzQtNGJmNS1iOTRhLTM4MzdiMjIzNTNiNyIsImdlbmVyYXRlLWRhdGUiOiI3LzE2LzIwMjIgNzoxMzo1MyBBTSIsImdlbmVyYXRpb24tc3RhbXAiOiIyNmE2ZGFlZC1jYmJhLTRhYmUtYTI5ZC1lYjQyYmY0NzBkNjEiLCJQZXJzb25hbEltYWdlIjoiRG9jdW1lbnRzXFxEcml2ZXIgUGVyc29uYWwgSW1hZ2VzXFw0ZTNlNTg0NC0yMDYwLTQ3ODgtOGZhMi02ZDcxMWY1NDc3OWRAc0N1c3RvbWVyNC5qcGciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDdXN0b21lciIsImV4cCI6MTcyMTEzOTIzMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0NDM3NS8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQ0Mzc1LyJ9.yaj3wiIKe2qyUqqKeGNdQl9QHu2yD9MPbnZzQy_K8Rk',
       logger: Logger('SignalR($hubName)'),
     );
   }
@@ -94,15 +95,24 @@ class SignalRService {
 
 void main() async {
   final s = SignalRService();
-  final hub = await s.openHub('https://nawat-solutions.com/orderHub');
-  print('connected');
-  hub.on("Test", osama);
-  // final r = await hub.invoke('main', args: ['String']);
-  // print(r);
+  final hub = await s
+      .openHub('http://drivetaplatform-001-site1.etempurl.com/deliveryHub/');
+  print(hub.state);
 
-  await Future.delayed(Duration(seconds: 90));
+  hub.onclose(({error}) {
+    print('onٍReconnecting $error');
+  });
+  hub.onreconnecting(({error}) {
+    print('onٍReconnecting $error');
+  });
+  hub.onreconnected(({connectionId}) {
+    print('onreconnected $connectionId');
+  });
+  hub.on("ReceiveLocations", on);
+
+  await Future.delayed(const Duration(minutes: 15));
 }
 
-void osama(List<dynamic>? args) {
-  print(args?[0]);
+void on(List<dynamic>? args) {
+  print(args);
 }

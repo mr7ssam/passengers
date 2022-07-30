@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import 'package:p_core/p_core.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../user/application/api.dart';
 import '../../../../../../user/domain/entities/user_profile.dart';
 import '../../../../../../user/domain/params/edit_image_params.dart';

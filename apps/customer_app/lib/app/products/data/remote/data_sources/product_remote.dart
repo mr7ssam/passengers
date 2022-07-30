@@ -1,3 +1,4 @@
+import 'package:customer_app/app/products/data/remote/models/home_data_dto.dart';
 import 'package:customer_app/common/const/const.dart';
 import 'package:p_core/p_core.dart';
 import 'package:p_network/p_http_client.dart';
@@ -41,6 +42,18 @@ class ProductRemote {
           )
           .then(
             (value) => ProductDetailsDTO.fromMap(value.data),
+          ),
+    );
+  }
+
+  Future<HomeDataDTO> homeData() async {
+    return throwAppException(
+      () => _dio
+          .get(
+            APIRoutes.product.home,
+          )
+          .then(
+            (value) => HomeDataDTO.fromMap(value.data),
           ),
     );
   }

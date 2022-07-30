@@ -69,10 +69,20 @@ class FoodMenuPage extends StatelessWidget {
                     pagingController: bloc.pagingController,
                     builderDelegate: PagedChildBuilderDelegate(
                       noItemsFoundIndicatorBuilder: (context) {
-                        return const EmptyWidget(
+                        final search = context
+                                .read<FoodMenuBloc>()
+                                .state
+                                .filter
+                                .search
+                                ?.trim()
+                                .isNotEmpty ??
+                            false;
+                        return EmptyWidget(
                           path: EmptyState.noMeal,
-                          title: 'No products yet!',
-                          subTitle: 'Add new product to start',
+                          title: !search ? 'No products yet!' : 'Oops!',
+                          subTitle: !search
+                              ? 'Add new product to start'
+                              : 'No matches',
                         );
                       },
                       firstPageErrorIndicatorBuilder: (context) {

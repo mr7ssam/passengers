@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:p_design/p_design.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/app/order/presentation/pages/order_page.dart';
 import 'package:shop_app/app/product/presentation/pages/food_menu/food_menu_page.dart';
 import 'package:shop_app/app/root/presentation/manager/root_manger.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -31,7 +32,6 @@ class RootScreen extends StatelessWidget {
     final coming = Center(
       child: SvgPicture.asset(
         EmptyState.comingSoon,
-        package: kDesignPackageName,
       ),
     );
     return Scaffold(
@@ -106,7 +106,7 @@ class RootScreen extends StatelessWidget {
           const HomePage(),
           const FoodMenuPage(),
           coming,
-          coming,
+          const OrdersPage(),
           coming,
         ].map((e) => KeepAliveWidget(child: e)).toList(),
       ),

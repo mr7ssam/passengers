@@ -121,42 +121,42 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Space.vM3,
-                TitledContainer(
-                  title: 'Settings',
-                  children: [
-                    CustomListTile(
-                      icon: const Icon(PIcons.outline_leg_chicken),
-                      text: 'Food list and categories',
-                      onTap: () {},
-                    ),
-                    CustomListTile(
-                      icon: const Icon(PIcons.outline_calendar___time),
-                      text: 'Manage schedule work',
-                      onTap: () {},
-                    ),
-                    CustomListTile(
-                      icon: const Icon(PIcons.outline_bell_ring),
-                      text: 'Order settings',
-                      onTap: () {},
-                    ),
-                    CustomListTile(
-                      icon: const Icon(PIcons.outline_notification),
-                      text: 'Sound and notifications',
-                      onTap: () {},
-                    ),
-                    CustomListTile(
-                      icon: const Icon(PIcons.outline_lock),
-                      text: 'Privacy and security',
-                      onTap: () {},
-                    ),
-                    CustomListTile(
-                      icon: const Icon(PIcons.outline_website),
-                      text: 'Languages',
-                      onTap: () {},
-                    ),
-                  ],
-                ),
+                // Space.vM3,
+                // TitledContainer(
+                //   title: 'Settings',
+                //   children: [
+                //     CustomListTile(
+                //       icon: const Icon(PIcons.outline_leg_chicken),
+                //       text: 'Food list and categories',
+                //       onTap: () {},
+                //     ),
+                //     CustomListTile(
+                //       icon: const Icon(PIcons.outline_calendar___time),
+                //       text: 'Manage schedule work',
+                //       onTap: () {},
+                //     ),
+                //     CustomListTile(
+                //       icon: const Icon(PIcons.outline_bell_ring),
+                //       text: 'Order settings',
+                //       onTap: () {},
+                //     ),
+                //     CustomListTile(
+                //       icon: const Icon(PIcons.outline_notification),
+                //       text: 'Sound and notifications',
+                //       onTap: () {},
+                //     ),
+                //     CustomListTile(
+                //       icon: const Icon(PIcons.outline_lock),
+                //       text: 'Privacy and security',
+                //       onTap: () {},
+                //     ),
+                //     CustomListTile(
+                //       icon: const Icon(PIcons.outline_website),
+                //       text: 'Languages',
+                //       onTap: () {},
+                //     ),
+                //   ],
+                // ),
                 Space.vM3,
                 TitledContainer(
                   title: 'Help',
@@ -193,6 +193,8 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Future<void> _onEditImagePressed(BuildContext context) async {
+    final color = Theme.of(context).primaryColor;
+    var settingsBloc = context.read<SettingsBloc>();
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
       CroppedFile? croppedFile = await ImageCropper().cropImage(
@@ -203,18 +205,18 @@ class SettingsScreen extends StatelessWidget {
         uiSettings: [
           AndroidUiSettings(
             toolbarTitle: 'Edit your image profile',
-            toolbarColor: Theme.of(context).primaryColor,
+            toolbarColor: color,
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.square,
           )
         ],
       );
       if (croppedFile != null) {
-        context.read<SettingsBloc>().add(
-              SettingsUserImageEdited(
-                File(croppedFile.path),
-              ),
-            );
+        settingsBloc.add(
+          SettingsUserImageEdited(
+            File(croppedFile.path),
+          ),
+        );
       }
     }
   }

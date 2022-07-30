@@ -4,10 +4,10 @@ import 'package:p_network/p_refresh_token.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shop_app/app/user/data/local/data_sources/token_storage.dart';
 import 'package:shop_app/app/user/data/local/models/token.dart';
+import 'package:shop_app/common/storage/storage_service.dart';
+import 'package:shop_app/common/storage/storage_service_impl.dart';
 
 import '../../common/const/const.dart';
-import '../../core/storage/storage_service.dart';
-import '../../core/storage/storage_service_impl.dart';
 import '../service_locator.dart';
 
 Future<void> common() async {

@@ -17,7 +17,7 @@ Future<void> user() async {
   si.registerSingleton<UserRemote>(UserRemote(si()));
 
   si.registerSingleton<AddressRemote>(AddressRemote(si()));
-  si.registerSingleton<BotStorageMixin2<Address>>(AddressBotStorage());
+  si.registerSingleton<BotStorageListMixin<Address>>(AddressBotStorage());
 
   si.registerSingleton<UserStorage>(UserStorage(si()));
 

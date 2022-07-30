@@ -27,11 +27,19 @@ class AddressRemote {
   }
 
   Future<AddressDTO> update(Params params) async {
-    final response = await _dio.post(
+    final response = await _dio.put(
       APIRoutes.address.update,
       data: params.toMap(),
     );
     return throwAppException(() => AddressDTO.fromMap(response.data));
+  }
+
+  Future<bool> setCurrentLocation(Params params) async {
+    await _dio.patch(
+      APIRoutes.address.setCurrent,
+      queryParameters: params.toMap(),
+    );
+    return throwAppException(() => true);
   }
 
   Future<void> delete(Params params) async {

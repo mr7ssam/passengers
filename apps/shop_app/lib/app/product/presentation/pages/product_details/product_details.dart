@@ -12,7 +12,6 @@ import 'package:shop_app/common/utils.dart';
 import 'package:shop_app/injection/service_locator.dart';
 import 'package:simple_animations/simple_animations.dart';
 
-import '../../../../user/presentation/pages/complete_info/components/work_hours_bottom_sheet.dart';
 import '../../../domain/entities/product.dart';
 import '../../../domain/entities/product_details.dart';
 

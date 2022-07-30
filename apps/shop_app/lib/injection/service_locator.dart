@@ -9,4 +9,5 @@ Future<void> inject() async {
   await user();
   await category();
   product();
+  order();
 }

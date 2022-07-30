@@ -15,7 +15,7 @@ class UserInfoDTO {
   UserInfo toModel() {
     return UserInfo(
         fullName: fullName,
-        gender: Gender.values.byIndex(gender),
+        gender: Gender.values[gender],
         dob: DateTime.parse(dob));
   }
 

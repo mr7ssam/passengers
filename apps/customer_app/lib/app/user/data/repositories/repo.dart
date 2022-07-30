@@ -92,4 +92,7 @@ class UserRepo implements IUserRepo {
 
   @override
   User? get user => _userStorage.read();
+
+  @override
+  AuthToken? get authToken => _tokenStorage.read();
 }

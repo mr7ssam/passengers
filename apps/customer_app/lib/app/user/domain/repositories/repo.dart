@@ -24,6 +24,8 @@ abstract class IUserRepo {
 
   Stream<User?> get userStream;
 
+  AuthToken? get authToken;
+
   User? get user;
 
   Stream<AuthStatus> get authStream;

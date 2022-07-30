@@ -39,7 +39,7 @@ class UserDto {
       fullName: fullName,
       accessToken: accessToken,
       refreshToken: refreshToken,
-      gender: Gender.values.byIndex(gender),
+      gender: Gender.values[gender],
       imagePath: imagePath,
     );
   }
