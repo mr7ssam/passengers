@@ -34,7 +34,6 @@ class WelcomeScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: SvgPicture.asset(
                 Images.manageShopApp,
-                package: kDesignPackageName,
               ),
             ),
           ),

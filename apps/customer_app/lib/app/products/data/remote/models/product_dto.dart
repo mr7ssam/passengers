@@ -16,6 +16,9 @@ class ProductDTO {
     this.discount,
     this.rate = 0,
     this.buyers,
+    this.shopId,
+    this.shopImagePath,
+    this.shopOnline,
   });
 
   final String id;
@@ -24,48 +27,16 @@ class ProductDTO {
   final int? prepareTime;
   final int? buyers;
   final String? imagePath;
-  final double? price;
+  final double price;
   final bool? avilable;
   final String tagId;
   final bool? isNew;
   final bool? isHaveDiscount;
   final double? discount;
   final double rate;
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'prepareTime': prepareTime,
-      'imagePath': imagePath,
-      'price': price,
-      'avilable': avilable,
-      'tagId': tagId,
-      'isNew': isNew,
-      'isHaveDiscount': isHaveDiscount,
-      'discount': discount,
-      'rate': rate,
-      'buyers': buyers,
-    };
-  }
-
-  factory ProductDTO.fromMap(Map<String, dynamic> map) {
-    return ProductDTO(
-      id: map['id'],
-      name: map['name'],
-      description: map['description'],
-      prepareTime: map['prepareTime'],
-      imagePath: map['imagePath'],
-      price: map['price'],
-      avilable: map['avilable'],
-      tagId: map['tagId'] ?? '',
-      isNew: map['isNew'],
-      isHaveDiscount: map['isHaveDiscount'],
-      discount: map['discount'],
-      rate: map['rate'],
-    );
-  }
+  final String? shopId;
+  final String? shopImagePath;
+  final bool? shopOnline;
 
   Product toModel() {
     return Product(
@@ -82,6 +53,51 @@ class ProductDTO {
       discount: discount,
       rate: rate,
       buyers: buyers ?? 0,
+      shopId: shopId,
+      shopImagePath: shopImagePath,
+      shopOnline: shopOnline,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'prepareTime': prepareTime,
+      'buyers': buyers,
+      'imagePath': imagePath,
+      'price': price,
+      'avilable': avilable,
+      'tagId': tagId,
+      'isNew': isNew,
+      'isHaveDiscount': isHaveDiscount,
+      'discount': discount,
+      'rate': rate,
+      'shopId': shopId,
+      'shopImagePath': shopImagePath,
+      'shopOnline': shopOnline,
+    };
+  }
+
+  factory ProductDTO.fromMap(Map<String, dynamic> map) {
+    return ProductDTO(
+      id: map['id'],
+      name: map['name'],
+      description: map['description'],
+      prepareTime: map['prepareTime'],
+      buyers: map['buyers'],
+      imagePath: map['imagePath'],
+      price: map['price'],
+      avilable: map['avilable'],
+      tagId: map['tagId'] ?? '',
+      isNew: map['isNew'],
+      isHaveDiscount: map['isHaveDiscount'],
+      discount: map['discount'],
+      rate: map['rate'],
+      shopId: map['shopId'],
+      shopImagePath: map['shopImagePath'],
+      shopOnline: map['shopOnline'],
     );
   }
 }

@@ -88,6 +88,10 @@ class AppNetworkResponseException<OriginalException extends Exception, DataType>
 
 extension AppExceptionExt on AppException {
   bool get noInternetConnection => isThis(AppNetworkExceptionReason.noInternet);
+  bool get serverError => isThis(AppNetworkExceptionReason.serverError);
+  bool get timedOut => isThis(AppNetworkExceptionReason.timedOut);
+  bool get canceled => isThis(AppNetworkExceptionReason.canceled);
+  bool get responseError => isThis(AppNetworkExceptionReason.responseError);
 
   bool isThis(AppNetworkExceptionReason reason) {
     if (this is AppNetworkException<dynamic>) {
@@ -96,11 +100,4 @@ extension AppExceptionExt on AppException {
     }
     return false;
   }
-}
-
-extension BuildContextExt on BuildContext{
-  ColorScheme get colorScheme => Theme.of(this).colorScheme;
-  ThemeData get theme => Theme.of(this);
-  TextTheme get textTheme => Theme.of(this).textTheme;
-  Color get primaryColor => colorScheme.primary;
 }

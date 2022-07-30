@@ -6,7 +6,8 @@ class CustomListTile extends StatelessWidget {
     Key? key,
     this.icon,
     this.trilling,
-    required this.text,
+    this.text,
+    this.textWidget,
     this.onTap,
     this.borderRadius = PRadius.container,
     this.children = const [],
@@ -15,7 +16,8 @@ class CustomListTile extends StatelessWidget {
   final Widget? icon;
   final Widget? trilling;
   final List<Widget> children;
-  final String text;
+  final String? text;
+  final Widget? textWidget;
   final GestureTapCallback? onTap;
   final double borderRadius;
 
@@ -37,7 +39,7 @@ class CustomListTile extends StatelessWidget {
                 children: [
                   if (icon != null) icon!,
                   const RSizedBox.horizontal(12),
-                  YouText.bodyMedium(text),
+                  textWidget != null ? textWidget! : YouText.bodyMedium(text!),
                   if (trilling != null || onTap != null) const Spacer(),
                   if (onTap != null && trilling == null) ...[
                     const Icon(PIcons.outline_arrow___right__1),

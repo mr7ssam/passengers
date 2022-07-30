@@ -21,7 +21,6 @@ dependencies:
   p_core:
     path: ../p_core
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

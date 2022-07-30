@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:p_core/p_core.dart';
-import 'package:reactive_forms/reactive_forms.dart';
+import 'package:p_design/p_design.dart';
 
 import '../../../../application/facade.dart';
 import '../../../../domain/params/login_params.dart';

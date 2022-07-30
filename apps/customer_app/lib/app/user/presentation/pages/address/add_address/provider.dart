@@ -1,4 +1,3 @@
-import 'package:customer_app/common/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,22 +7,17 @@ import '../../../../application/facade.dart';
 import '../../../../domain/entities/address.dart';
 
 class AddAddressProvider extends ChangeNotifier {
-  AddAddressProvider(this._userFacade) : _pageState = const PageState.init();
-
-  init(Address? address, LatLng latLng) {
-    formGroup.value = {
-      ...latLng.toMap(),
-      ...address?.toMap() ?? {},
-    };
-  }
-
   final UserFacade _userFacade;
-
-  bool get isEdit => controls.id.value != null;
 
   final Controls controls = Controls();
 
   late final FormGroup formGroup = FormGroup(controls.controls);
+
+  AddAddressProvider(this._userFacade) : _pageState = const PageState.init();
+
+  init(Address? address) {
+    formGroup.value = address?.toMap() ?? {};
+  }
 
   PageState<void> _pageState;
 
@@ -34,9 +28,9 @@ class AddAddressProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool get isEdit => controls.id.value != null;
+
   Future<void> submitted(BuildContext context) async {
-    print(formGroup.value);
-    print(formGroup.valid);
     if (formGroup.isValid()) {
       pageState = const PageState.loading();
 
@@ -70,38 +64,34 @@ class AddAddressProvider extends ChangeNotifier {
 
 class Controls {
   final id = FormControl<String>();
+
   final title = FormControl<String>(
     validators: [
       Validators.required,
       Validators.minLength(3),
     ],
   );
+
   final building = FormControl<String>(
     validators: [
       Validators.required,
       Validators.minLength(7),
     ],
   );
+
   final text = FormControl<String>(
     validators: [
       Validators.required,
     ],
   );
+
   final phoneNumber = FormControl<String>();
 
   final note = FormControl<String>();
 
-  final lat = FormControl<double>(
-    validators: [
-      Validators.required,
-    ],
-  );
-
-  final long = FormControl<double>(
-    validators: [
-      Validators.required,
-    ],
-  );
+  final location = FormControl<LatLng>(
+      // validators: [Validators.required],
+      );
 
   late Map<String, FormControl> controls = {
     'id': id,
@@ -110,7 +100,6 @@ class Controls {
     'text': text,
     'phoneNumber': phoneNumber,
     'note': note,
-    'lat': lat,
-    'lng': long,
+    'location': location,
   };
 }

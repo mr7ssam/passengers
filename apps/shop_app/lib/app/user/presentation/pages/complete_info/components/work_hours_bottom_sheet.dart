@@ -107,31 +107,3 @@ class _WorkDaysBottomSheetState extends State<WorkDaysBottomSheet> {
     widget.onChanged(_workDays);
   }
 }
-
-class BottomSheetWrapperWidget extends StatelessWidget {
-  final String title;
-  final List<Widget> children;
-
-  const BottomSheetWrapperWidget({
-    Key? key,
-    required this.title,
-    this.children = const [],
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: SingleChildScrollView(
-        padding: PEdgeInsets.listView,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            YouText.titleLarge(title),
-            ...children,
-          ],
-        ),
-      ),
-    );
-  }
-}

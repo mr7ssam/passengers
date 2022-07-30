@@ -1,18 +1,21 @@
 part of '../const.dart';
 
 const kBaseAPIUrl = '$kBaseUrl/api';
-const kBaseUrl = 'https://nawat-solutions.com';
+// const kBaseUrl = 'https://nawat-solutions.com';
+const kBaseUrl = 'http://passengers-001-site1.gtempurl.com';
 
 abstract class APIRoutes {
   APIRoutes._();
 
-  static const _Shop shop = _Shop();
+  static const shop = _Shop();
 
-  static const _Category category = _Category();
+  static const order = _Order();
 
-  static const _Tag tag = _Tag();
+  static const category = _Category();
 
-  static const _Product product = _Product();
+  static const tag = _Tag();
+
+  static const product = _Product();
 }
 
 class _Shop {
@@ -59,4 +62,11 @@ class _Product {
   final getProductDetails = '/Product/GetById';
   final delete = '/Product/delete';
   final home = '/Shop/home';
+}
+
+class _Order {
+  const _Order();
+
+  final getAll = '/Order/GetShopOrders';
+  final markAsReady = '/Order/Ready';
 }

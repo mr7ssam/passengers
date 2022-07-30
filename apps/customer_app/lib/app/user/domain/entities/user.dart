@@ -51,7 +51,7 @@ class User {
       phoneNumber: map['phoneNumber'],
       accessToken: map['accessToken'],
       refreshToken: map['refreshToken'],
-      gender: Gender.values.byIndex(map['gender']),
+      gender: Gender.values[(map['gender'])],
       imagePath: map['imagePath'] as String?,
       type: UserType.values[map['userType']],
     );
@@ -88,24 +88,9 @@ class User {
   }
 }
 
-enum Gender {
-  male(1),
-  female(2);
-
-  const Gender(index);
-}
+enum Gender { none, male, female }
 
 enum UserType {
   guest,
   normal,
-}
-
-extension Eext<T extends Enum> on Iterable<T> {
-  Map<int, T> get indexedMap {
-    return Map.fromEntries(map((e) => MapEntry(e.index, e)));
-  }
-
-  T byIndex(int index) {
-    return indexedMap[index - 1]!;
-  }
 }

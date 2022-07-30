@@ -51,7 +51,6 @@ class WelcomeScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: SvgPicture.asset(
                   Images.userFoodDeliveryApp,
-                  package: kDesignPackageName,
                 ),
               ),
             ),

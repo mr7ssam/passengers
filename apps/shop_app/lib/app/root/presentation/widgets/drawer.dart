@@ -4,7 +4,7 @@ import 'package:p_design/p_design.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/app/user/presentation/provider.dart';
 import 'package:shop_app/common/utils.dart';
-import 'package:shop_app/core/app_manger/bloc/app_manger_bloc.dart';
+import 'package:shop_app/app_manger/bloc/app_manger_bloc.dart';
 
 import '../pages/drawer/settings/settings_screen.dart';
 

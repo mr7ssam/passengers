@@ -6,7 +6,7 @@ import 'package:shop_app/app/root/presentation/root.dart';
 import 'package:shop_app/app/user/domain/entities/user.dart';
 
 import '../app/user/presentation/pages/complete_info/complete_info_land_screen.dart';
-import '../core/app_manger/bloc/app_manger_bloc.dart';
+import '../app_manger/bloc/app_manger_bloc.dart';
 import 'routes.dart';
 
 class AppRouter {

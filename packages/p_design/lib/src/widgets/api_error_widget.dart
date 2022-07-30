@@ -21,7 +21,6 @@ class APIErrorWidget extends StatelessWidget {
             exception.noInternetConnection
                 ? EmptyState.noInternetConnection
                 : EmptyState.somethingWentWrong,
-            package: kDesignPackageName,
           ),
           YouText.bodySmall(exception.message)
         ],

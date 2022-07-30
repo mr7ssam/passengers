@@ -113,9 +113,9 @@ class FoodListPageProvider extends ChangeNotifier {
     if (shop == selectedShop) {
       return;
     }
-    final _selectedShop = selectedShop;
-    final _tags = tags;
-    final _tag = selectedTag;
+    final pSelectedShop = selectedShop;
+    final pTags = tags;
+    final pTag = selectedTag;
     selectedShop = shop;
     tags = null;
     final result = await _productFacade.getTags(
@@ -128,9 +128,9 @@ class FoodListPageProvider extends ChangeNotifier {
         pagingController.refresh();
       },
       failure: (_, __) {
-        tags = _tags;
-        selectedShop = _selectedShop;
-        selectedTag = _tag;
+        tags = pTags;
+        selectedShop = pSelectedShop;
+        selectedTag = pTag;
       },
     );
   }

@@ -24,6 +24,13 @@ final lightTheme = ThemeData(
     appBarTheme: _appBarTheme,
     inputDecorationTheme: _kInputDecoration,
     iconTheme: _kIconTheme,
+    indicatorColor: PColors.primarySwatch.shade400,
+    popupMenuTheme: PopupMenuThemeData(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(PRadius.container),
+      ),
+    ),
     bottomSheetTheme: const BottomSheetThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -145,9 +152,10 @@ final _chipTheme = ChipThemeData(
   ),
 );
 
-const _appBarTheme = AppBarTheme(
+final _appBarTheme = AppBarTheme(
   color: Colors.transparent,
   elevation: 0,
+  titleSpacing: LayoutConstrains.m3.r,
   foregroundColor: Colors.black,
-  iconTheme: IconThemeData(color: Colors.black),
+  iconTheme: const IconThemeData(color: Colors.black),
 );

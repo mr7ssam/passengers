@@ -1,4 +1,5 @@
 import 'package:customer_app/app/user/domain/entities/address.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AddressDTO {
   final String id;
@@ -9,6 +10,7 @@ class AddressDTO {
   final String lng;
   final String? phoneNumber;
   final String? note;
+  final bool isCurrentLocation;
 
   AddressDTO({
     required this.id,
@@ -19,6 +21,7 @@ class AddressDTO {
     required this.lng,
     required this.phoneNumber,
     required this.note,
+    required this.isCurrentLocation,
   });
 
   Map<String, dynamic> toMap() {
@@ -44,6 +47,7 @@ class AddressDTO {
       lng: map['long'],
       phoneNumber: map['phoneNumber'],
       note: map['note'],
+      isCurrentLocation: map['isCurrentLocation'],
     );
   }
 
@@ -54,9 +58,9 @@ class AddressDTO {
       title: title,
       building: building,
       phoneNumber: phoneNumber,
-      lat: lat,
-      lng: lng,
+      location: LatLng(double.parse(lat), double.parse(lng)),
       note: note,
+      isCurrentLocation: isCurrentLocation,
     );
   }
 }

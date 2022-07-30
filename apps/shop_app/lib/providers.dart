@@ -7,7 +7,8 @@ import 'package:shop_app/app/product/presentation/pages/food_menu/bloc/food_menu
 import 'package:shop_app/app/user/presentation/provider.dart';
 import 'package:shop_app/router/router.dart';
 
-import 'core/app_manger/bloc/app_manger_bloc.dart';
+import 'app/order/presentation/pages/provider.dart';
+import 'app_manger/bloc/app_manger_bloc.dart';
 import 'injection/service_locator.dart';
 
 class Providers extends StatelessWidget {
@@ -20,7 +21,7 @@ class Providers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
         BlocProvider(
           create: (context) => AppMangerBloc(
@@ -29,6 +30,9 @@ class Providers extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => FoodMenuBloc(si()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrdersProvider(si())..fetch(),
         ),
       ],
       child: MultiProvider(
@@ -46,7 +50,6 @@ class Providers extends StatelessWidget {
   }
 
   FutureOr<void> _doBeforeOpen() async {
-    WidgetsFlutterBinding.ensureInitialized();
     await inject();
   }
 }

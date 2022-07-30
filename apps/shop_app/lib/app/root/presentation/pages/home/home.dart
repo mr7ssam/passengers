@@ -269,7 +269,12 @@ class VerticalCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    YouText.titleSmall(title, maxLines: 2),
+                    YouText.titleSmall(
+                      title,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
                     if (subtitle != null) ...[
                       Space.vS2,
                       Center(child: subtitle!),

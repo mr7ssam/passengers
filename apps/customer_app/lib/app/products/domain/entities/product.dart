@@ -18,7 +18,9 @@ class Product {
     this.discount = 0,
     this.rate = 0,
     this.buyers = 0,
-    this.index,
+    this.shopId,
+    this.shopImagePath,
+    this.shopOnline,
   });
 
   final String id;
@@ -26,7 +28,7 @@ class Product {
   final String? description;
   final Duration? prepareTime;
   final String? imagePath;
-  final double? price;
+  final double price;
   final bool avilable;
   final String tagId;
   final Tag? tag;
@@ -35,7 +37,28 @@ class Product {
   final double? discount;
   final double rate;
   final int buyers;
-  final int? index;
+  final String? shopId;
+  final String? shopImagePath;
+  final bool? shopOnline;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'prepareTime': prepareTime,
+      'image': ImageFile(imageUrl: imagePath),
+      'price': price.toInt(),
+      'tag': tag,
+      'avilable': avilable,
+      'tagId': tagId,
+      'isNew': isNew,
+      'isHaveDiscount': isHaveDiscount,
+      'discount': discount,
+      'rate': rate,
+      'buyers': buyers,
+    };
+  }
 
   Product copyWith({
     String? id,
@@ -52,42 +75,28 @@ class Product {
     double? discount,
     double? rate,
     int? buyers,
-    int? index,
-  }) =>
-      Product(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        prepareTime: prepareTime ?? this.prepareTime,
-        imagePath: imagePath ?? this.imagePath,
-        price: price ?? this.price,
-        avilable: avilable ?? this.avilable,
-        tagId: tagId ?? this.tagId,
-        tag: tag ?? this.tag,
-        isNew: isNew ?? this.isNew,
-        isHaveDiscount: isHaveDiscount ?? this.isHaveDiscount,
-        discount: discount ?? this.discount,
-        rate: rate ?? this.rate,
-        index: index ?? this.index,
-        buyers: buyers ?? this.buyers,
-      );
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'prepareTime': prepareTime,
-      'image': ImageFile(imageUrl: imagePath),
-      'price': price?.toInt(),
-      'tag': tag,
-      'avilable': avilable,
-      'tagId': tagId,
-      'isNew': isNew,
-      'isHaveDiscount': isHaveDiscount,
-      'discount': discount,
-      'rate': rate,
-      'buyers': buyers,
-    };
+    String? shopId,
+    String? shopImagePath,
+    bool? shopOnline,
+  }) {
+    return Product(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      prepareTime: prepareTime ?? this.prepareTime,
+      imagePath: imagePath ?? this.imagePath,
+      price: price ?? this.price,
+      avilable: avilable ?? this.avilable,
+      tagId: tagId ?? this.tagId,
+      tag: tag ?? this.tag,
+      isNew: isNew ?? this.isNew,
+      isHaveDiscount: isHaveDiscount ?? this.isHaveDiscount,
+      discount: discount ?? this.discount,
+      rate: rate ?? this.rate,
+      buyers: buyers ?? this.buyers,
+      shopId: shopId ?? this.shopId,
+      shopImagePath: shopImagePath ?? this.shopImagePath,
+      shopOnline: shopOnline ?? this.shopOnline,
+    );
   }
 }

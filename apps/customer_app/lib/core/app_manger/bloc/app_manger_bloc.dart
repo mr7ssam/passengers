@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:customer_app/app/user/application/facade.dart';
 import 'package:customer_app/app/user/domain/entities/user.dart';
 import 'package:customer_app/injection/service_locator.dart';
-import 'package:meta/meta.dart';
 import 'package:p_network/p_refresh_token.dart';
 
 part 'app_manger_event.dart';

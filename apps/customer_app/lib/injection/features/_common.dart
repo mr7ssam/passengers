@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:network_logger/network_logger.dart';
 import 'package:p_network/p_http_client.dart';
 import 'package:p_network/p_refresh_token.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,6 +9,7 @@ import '../../common/const/const.dart';
 import '../../core/storage/storage_service.dart';
 import '../../core/storage/storage_service_impl.dart';
 import '../service_locator.dart';
+import 'dart:developer';
 
 Future<void> common() async {
   final path = await getApplicationDocumentsDirectory();
@@ -30,9 +30,10 @@ Future<void> _regDioClient() async {
     responseHeader: true,
     request: true,
     requestBody: true,
+    logPrint: (m) {
+      log(m.toString());
+    },
   );
-  dioClient.interceptors.add(DioNetworkLogger());
-
   dioClient.interceptors.addAll([
     RefreshTokenInterceptor<AuthTokenModel>(
       dio: dioClient,

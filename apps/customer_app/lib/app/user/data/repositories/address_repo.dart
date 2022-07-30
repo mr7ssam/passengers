@@ -7,7 +7,7 @@ import '../remote/address_remote.dart';
 
 class AddressRepo implements IAddressRepo {
   final AddressRemote _addressRemote;
-  final BotStorageMixin2<Address> addressBotStorage;
+  final BotStorageListMixin<Address> addressBotStorage;
 
   AddressRepo(this._addressRemote, this.addressBotStorage);
 
@@ -23,19 +23,17 @@ class AddressRepo implements IAddressRepo {
   }
 
   @override
-  Stream<List<Address>?> stream() async* {
+  Stream<List<Address>?> stream() {
     _s();
-    yield* addressBotStorage.stream;
+    return addressBotStorage.stream;
   }
 
   _s() {
-    try {
-      getAll().then((value) {
-        addressBotStorage.write(value);
-      });
-    } on AppException catch (e) {
+    getAll().then((value) {
+      addressBotStorage.write(value);
+    }).catchError((e) {
       addressBotStorage.addError(e);
-    }
+    });
   }
 
   @override
@@ -59,13 +57,36 @@ class AddressRepo implements IAddressRepo {
   }
 
   @override
-  Future<Address> update(Params params) {
+  Future<Address> update(Address params) {
+    final index = addressBotStorage.read()!.indexOf(params);
     return _addressRemote.update(params).then(
       (value) {
         final address = value.toModel();
-        addressBotStorage.add(address);
+        addressBotStorage.update(address, index);
         return address;
       },
     );
+  }
+
+  @override
+  Future<bool> setCurrent(Address params) {
+    return _addressRemote.setCurrentLocation(params).then(
+      (value) {
+        var list = addressBotStorage
+            .read()!
+            .map((e) => e.copyWith(isCurrentLocation: e.id == params.id))
+            .toList();
+        print(list.length);
+        addressBotStorage.write(
+          list,
+        );
+        return value;
+      },
+    );
+  }
+
+  @override
+  List<Address> read() {
+    return addressBotStorage.read() ?? [];
   }
 }

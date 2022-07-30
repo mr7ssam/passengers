@@ -1,8 +1,10 @@
+import 'package:customer_app/app/products/data/remote/models/home_data_dto.dart';
 import 'package:customer_app/app/products/domain/entities/product.dart';
 import 'package:darq/darq.dart';
 import 'package:p_core/p_core.dart';
 
 import '../domain/entities/category.dart';
+import '../domain/entities/home_data.dart';
 import '../domain/entities/product_details.dart';
 import '../domain/entities/shop.dart';
 import '../domain/entities/tag.dart';
@@ -46,6 +48,10 @@ class ProductFacade {
 
   Future<ApiResult<ProductDetails>> getProductDetails(Params params) {
     return toApiResult(() => _productRepo.getProductDetails(params));
+  }
+
+  Future<ApiResult<HomeData>> homeData() {
+    return toApiResult(() => _productRepo.homeData());
   }
 
   Future<ApiResult<Tuple2<List<Shop>, List<Tag>>>> getFoodListData() {

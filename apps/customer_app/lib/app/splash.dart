@@ -48,7 +48,6 @@ class SplashScreen extends StatelessWidget {
               child: SvgPicture.asset(
                 Images.appLogo,
                 width: 82.r,
-                package: kDesignPackageName,
                 color: scheme.surface,
               ),
               builder: (context, child, animation) => Transform.scale(

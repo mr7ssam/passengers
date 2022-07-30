@@ -69,6 +69,7 @@ abstract class PEdgeInsets {
   PEdgeInsets._();
 
   static final listView = REdgeInsets.all(LayoutConstrains.m3);
+  static final card = REdgeInsets.all(LayoutConstrains.m1);
   static final title = REdgeInsets.symmetric(
     horizontal: LayoutConstrains.m3,
     vertical: LayoutConstrains.s3,

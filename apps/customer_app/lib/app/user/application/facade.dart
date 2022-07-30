@@ -7,6 +7,7 @@ import '../domain/entities/user.dart';
 import '../domain/entities/user_info.dart';
 import '../domain/entities/user_profile.dart';
 import '../domain/repositories/repo.dart';
+import 'package:darq/darq.dart';
 
 class UserFacade {
   final IUserRepo _userRepo;
@@ -75,9 +76,15 @@ class UserFacade {
     );
   }
 
-  Future<ApiResult<Address>> updateAddress(Params params) {
+  Future<ApiResult<Address>> updateAddress(Address params) {
     return toApiResult(
       () => _addressRepo.update(params),
+    );
+  }
+
+  Future<ApiResult<bool>> setCurrent(Address params) {
+    return toApiResult(
+      () => _addressRepo.setCurrent(params),
     );
   }
 
@@ -88,9 +95,15 @@ class UserFacade {
   }
 
   Stream<User?> get userStream => _userRepo.userStream;
-  Stream<List<Address>?> get addressStream => _addressRepo.stream();
+
+  Stream<List<Address>?> get addressStream =>
+      _addressRepo.stream().map((event) => event?..sort());
+
+  List<Address> get addresses => _addressRepo.read();
 
   Stream<AuthStatus> get authStream => _userRepo.authStream;
+
+  AuthToken? get authToken => _userRepo.authToken;
 
   User? get user => _userRepo.user;
 }

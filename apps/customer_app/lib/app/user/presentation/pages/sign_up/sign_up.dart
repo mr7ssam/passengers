@@ -58,8 +58,8 @@ class SignUpScreen extends StatelessWidget {
                 ReactiveDropdownField(
                   items: Gender.values
                       .map((e) => DropdownMenuItem(
-                            child: Text(e.name),
                             value: e,
+                            child: Text(e.name),
                           ))
                       .toList(),
                   decoration: const InputDecoration(
